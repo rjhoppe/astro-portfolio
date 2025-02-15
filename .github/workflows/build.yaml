@@ -105,7 +105,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker build -t your-dockerhub-username/your-image-name:latest .
+        docker build -t rickjhoppe/your-image-name:latest .
 
     - name: Push the Docker image to Docker Hub
       run: |
