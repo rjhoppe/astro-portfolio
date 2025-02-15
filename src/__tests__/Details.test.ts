@@ -3,9 +3,8 @@ import { renderAstroComponent } from "./helpers";
 import Details from "@components/Details.astro";
 
 describe("Details", () => {
-  test("Details component is rendered", async () => {
+  test("Should render Details component correctly", async () => {
     const result = await renderAstroComponent(Details);
-
     const resultText = result.textContent;
 
     expect(resultText).toContain("Hi, I'm Rick");
