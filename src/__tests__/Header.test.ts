@@ -10,7 +10,6 @@ describe("Header", () => {
     };
 
     const result = await renderAstroComponent(Header, { locals });
-
     const resultText = result.textContent;
 
     expect(resultText).toContain("home");

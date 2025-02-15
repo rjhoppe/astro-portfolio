@@ -85,3 +85,28 @@ jobs:
         run: |
           docker stop test-container || true
           docker rm test-container || true
+
+  update:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Docker Buildx (enables building multi-platform images)
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build the Docker image
+      run: |
+        docker build -t your-dockerhub-username/your-image-name:latest .
+
+    - name: Push the Docker image to Docker Hub
+      run: |
+        docker push rickjhoppe/astro-portfolio:latest

@@ -2,18 +2,21 @@
 import Container from "@components/Container.astro";
 import { FORBIDDEN } from "@consts";
 import PageLayout from "@layouts/PageLayout.astro";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
-const src = '/img/restricted-area.png';
+const src = "/img/restricted-area.png";
 ---
 
 <PageLayout title={FORBIDDEN.TITLE} description={FORBIDDEN.DESCRIPTION}>
   <Container>
-    <h1 class="flex justify-center animate font-semibold text-black dark:text-white text-xl py-4">
+    <h1
+      class="flex justify-center animate font-semibold text-black dark:text-white text-xl py-4"
+    >
       403: Forbidden
     </h1>
     <div class="grid justify-items-center">
       <Image
+        id="forbidden-img"
         src={src}
         alt="Restricted Area Star Wars"
         loading="eager"
