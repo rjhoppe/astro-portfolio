@@ -53,7 +53,11 @@ jobs:
 
       - name: Test container start
         run: |
-          docker run --name test-container -p 4321:4321 -d astro-portfolio:test
+          docker volume create sqlite-data
+          docker run --name test-container \
+            -p 4321:4321 \
+            -v sqlite-data:/data \
+            -d astro-portfolio:test
           
           # Wait for container to start
           sleep 10
