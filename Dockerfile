@@ -32,12 +32,21 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 # Copy migrations directory
 COPY --from=build /app/drizzle ./drizzle
-# Create meta directory for drizzle
-RUN mkdir -p meta
 
-# Runtime configuration
+# Create data directory for SQLite database
+RUN mkdir -p /data
+
+# Set volume mount point
+VOLUME ["/data"]
+
+# Set volume mount points
+VOLUME ["/app/data/meta", "/app/data/db"]
+
+# Set environment variables
+ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=4321
+ENV DB_PATH=/app/data/db/database.sqlite
 EXPOSE 4321
 
 # Start the app and run migrations
