@@ -1,3 +1,4 @@
+# For local testings ONLY
 # Load all environment variables from .env file
 export $(grep -v '^#' .env | xargs)
 

@@ -25,3 +25,4 @@ pnpm-debug.log*
 notes.txt
 db.sqlite3
 local/
+prod_build.sh

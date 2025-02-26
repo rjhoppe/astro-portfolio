@@ -13,3 +13,5 @@ db.sqlite3
 __tests__/
 local/
 .github/
+prod_build.sh
+local_build.sh
