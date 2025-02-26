@@ -7,7 +7,6 @@ type IssueBody = {
 };
 
 export const POST: APIRoute = async ({ request }): Promise<Response> => {
-  // add jwt auth to this route
   const isNotRateLimited = rateLimit(request);
   if (request.method === "POST" && isNotRateLimited) {
     try {

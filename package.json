@@ -28,6 +28,8 @@
     "@fontsource/lora": "^5.1.1",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
+    "@sentry/astro": "^9.1.0",
+    "@sentry/profiling-node": "^9.1.0",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^18.3.18",
@@ -53,6 +55,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@sentry/vite-plugin": "^3.1.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/better-sqlite3": "^7.6.12",
     "@types/jsdom": "^21.1.7",

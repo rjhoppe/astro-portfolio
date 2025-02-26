@@ -10,11 +10,4 @@ describe("Gifts", () => {
     expect(container).not.toBeNull();
     expect(giftsContainer).not.toBeNull();
   });
-  // test('Should render the Gifts component correctly when password is presented', async() => {
-  //   const { container } = render(<Gifts admin={false}/>);
-  //   const giftsContainer = container.querySelector("#gifts-container")
-
-  //   expect(container).not.toBeNull();
-  //   expect(giftsContainer).not.toBeNull();
-  // })
 });
