@@ -1,0 +1,16 @@
+version: "3"
+services:
+  app:
+    image: rickjhoppe/astro-portfolio:latest
+    container_name: astro-portfolio
+    ports:
+      - "4321:4321"
+    volumes:
+      - sqlite-data:/data
+      - meta-data:/app/data/meta
+      - db-data:/app/data/db
+
+volumes:
+  sqlite-data:
+  meta-data:
+  db-data:

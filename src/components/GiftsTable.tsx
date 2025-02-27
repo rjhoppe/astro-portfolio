@@ -150,7 +150,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
       <div className="flex justify-end gap-4 mb-2">
         <p className="flex py-1">Filter By Assignee</p>
         <select
-          className="flex border border-stone-600 rounded-lg bg-stone-700 py-1 px-2"
+          className="flex border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
           name="assignee-filter"
           id="filter"
           onChange={(e) => handleFilterChange(e)}
@@ -167,7 +167,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         <thead>
           <tr>
             {cols.map((col) => (
-              <th key={col} className="text-lg text-white">
+              <th key={col} className="text-lg dark:text-white">
                 {col}
               </th>
             ))}
@@ -182,7 +182,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                   <td>
                     <select
                       id={gift.id.toString()}
-                      className="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2"
+                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
                       defaultValue={gift.bought}
                       name="bought"
                       onChange={(e) =>
@@ -195,7 +195,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                   </td>
                   <td>
                     <select
-                      className="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2"
+                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
                       defaultValue={gift.assignee}
                       name="assignee"
                       onChange={(e) =>
@@ -237,7 +237,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                   <td>
                     <select
                       id={gift.id.toString()}
-                      className="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2"
+                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
                       defaultValue={gift.bought}
                       name="bought"
                       onChange={(e) =>
@@ -250,7 +250,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                   </td>
                   <td>
                     <select
-                      className="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2"
+                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
                       defaultValue={gift.assignee}
                       name="assignee"
                       onChange={(e) =>

@@ -89,7 +89,7 @@ export const socialsData = [
   },
   {
     name: socialsType.email,
-    url: "rickjhoppe@email.com",
+    url: "/contact",
     icon: "/icons/email.svg",
     color: "bg-lime-400",
   },

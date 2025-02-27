@@ -174,7 +174,7 @@ const InfoAccordion = () => {
             <textarea
               name="issue"
               id="issue"
-              className="border border-stone-600 rounded-lg mt-4 bg-stone-700 py-1 px-2"
+              className="border border-black/15 dark:border-stone-600 rounded-lg mt-4 dark:bg-stone-700 py-1 px-2"
               rows={5}
               cols={33}
               maxLength={255}

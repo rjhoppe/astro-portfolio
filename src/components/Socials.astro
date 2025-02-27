@@ -12,8 +12,7 @@ const getClass = (type: Type) =>
 <div class="grid grid-cols-3 gap-3 duration-500 md:grid-flow-col md:gap-2">
   {
     socials.map((social) => {
-      const href =
-        social.name === Type.email ? `mailto:${social.url}` : social.url;
+      const href = social.url;
       return (
         <a
           aria-label={social.name}
