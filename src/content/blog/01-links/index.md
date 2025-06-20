@@ -62,6 +62,20 @@ note: A book that needs no introduction. Incredible how relevant this book is 30
 
 ------------------------------------------------------------------------
 
+##### website: 100 Go Mistakes and How to Avoid Them
+link: https://100go.co/
+
+note: A high level summary of the very popular book of the same name.
+
+------------------------------------------------------------------------
+
+##### website: 100 Common Python Mistakes
+link: https://thepythonbook.com/en/common-python-mistakes
+
+note: The Pythonic take on the popular Go book: "100 Go Mistakes and How to Avoid Them"
+
+------------------------------------------------------------------------
+
 ### Reading
 
 ### Articles
