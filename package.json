@@ -97,10 +97,5 @@
       "eslint --fix",
       "prettier --write"
     ]
-  },
-  "pnpm": {
-    "overrides": {
-      "esbuild": "0.19.12"
-    }
   }
 }
