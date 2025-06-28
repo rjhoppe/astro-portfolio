@@ -11,7 +11,7 @@ export const generateSessionToken = (): string => {
 	crypto.getRandomValues(bytes);
 	const token = encodeBase32LowerCaseNoPadding(bytes);
 	return token;
-}
+};
 
 export const createSession = async (token: string, userId: number): Promise<Session> => {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -22,7 +22,7 @@ export const createSession = async (token: string, userId: number): Promise<Sess
 	};
 	await db.insert(sessionsTable).values(session);
 	return session;
-}
+};
 
 export const validateSessionToken = async (token: string): Promise<SessionValidationResult> => {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
@@ -49,11 +49,11 @@ export const validateSessionToken = async (token: string): Promise<SessionValida
 			.where(eq(sessionsTable.id, session.id));
 	}
 	return { session, user };
-}
+};
 
 export const invalidateSession = async (sessionId: string): Promise<void> => {
 	await db.delete(sessionsTable).where(eq(sessionsTable.id, sessionId));
-}
+};
 
 export const setSessionTokenCookie = (context: APIContext, token: string, expiresAt: Date): void => {
 	context.cookies.set("session", token, {
@@ -63,7 +63,7 @@ export const setSessionTokenCookie = (context: APIContext, token: string, expire
 		expires: expiresAt,
 		path: "/"
 	});
-}
+};
 
 export const deleteSessionTokenCookie = (context: APIContext): void => {
 	context.cookies.set("session", "", {
@@ -73,7 +73,7 @@ export const deleteSessionTokenCookie = (context: APIContext): void => {
 		maxAge: 0,
 		path: "/"
 	});
-}
+};
 
 
 export type SessionValidationResult =

@@ -10,11 +10,14 @@ const { slug } = Astro.params; // Dynamic slug from the URL
 
 // Fetch posts dynamically using async
 const posts = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .filter((post: CollectionEntry<"blog">) => !post.data.draft)
+  .sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+      b.data.date.valueOf() - a.data.date.valueOf(),
+  );
 
 // Find the matching post based on the dynamic slug
-const post = posts.find((p) => p.slug === slug);
+const post = posts.find((p: CollectionEntry<"blog">) => p.slug === slug);
 
 if (!post) {
   throw new Error("Post not found");
@@ -27,9 +30,7 @@ const { Content } = await post.render();
 <PageLayout title={post.data.title} description={post.data.description}>
   <Container>
     <div class="animate">
-      <BackToPrev href="/blog">
-        Back to blog
-      </BackToPrev>
+      <BackToPrev href="/blog"> Back to blog </BackToPrev>
     </div>
     <div class="space-y-1 my-10">
       <div class="mb-10 animate flex items-center gap-1.5">

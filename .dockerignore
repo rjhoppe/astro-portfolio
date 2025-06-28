@@ -10,10 +10,13 @@ README.md
 notes.txt
 db.sqlite3
 .vscode/
-__tests__/
+src/__tests__/
 local/
 .github/
 prod_run.sh
 local_build.sh
 prod.env
 .env
+drizzle.config.ts
+vitest.config.ts
+vitest.setup.ts

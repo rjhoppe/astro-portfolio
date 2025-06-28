@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/astro";
+
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
 
 Sentry.init({

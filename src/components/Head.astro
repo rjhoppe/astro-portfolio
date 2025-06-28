@@ -62,6 +62,7 @@ const { title, description, image = "/nano.png" } = Astro.props;
   document.addEventListener("astro:before-swap", (e) =>
     [
       ...(e as TransitionBeforeSwapEvent).newDocument.head.querySelectorAll(
+        // eslint-disable-next-line quotes
         'link[as="font"]',
       ),
     ].forEach((link) => link.remove()),

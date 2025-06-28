@@ -121,7 +121,7 @@ if (Astro.locals.user === null) {
 
         // Find all the gift entries (the containers for the form rows)
         const giftRecords = document.querySelectorAll(
-          '[data-group="gift-entries"]',
+          "[data-group=\"gift-entries\"]",
         );
 
         // Find the parent container of the last gift entry row
@@ -144,7 +144,7 @@ if (Astro.locals.user === null) {
       form.addEventListener("submit", async (event) => {
         event.preventDefault(); // Prevent default form submission
         const giftEntries = document.querySelectorAll(
-          '[data-group="gift-entries"]',
+          "[data-group=\"gift-entries\"]",
         );
         giftEntries.forEach(async (gift) => {
           // Extract data from each entry
@@ -157,19 +157,19 @@ if (Astro.locals.user === null) {
           };
 
           const nameInput = gift.querySelector(
-            'input[name="name"]',
+            "input[name=\"name\"]",
           ) as HTMLInputElement | null;
           const linkInput = gift.querySelector(
-            'input[name="link"]',
+            "input[name=\"link\"]",
           ) as HTMLInputElement | null;
           const assigneeSelect = gift.querySelector(
-            'select[name="assignee"]',
+            "select[name=\"assignee\"]",
           ) as HTMLSelectElement | null;
           const boughtSelect = gift.querySelector(
-            'select[name="bought"]',
+            "select[name=\"bought\"]",
           ) as HTMLSelectElement | null;
           const notesInput = gift.querySelector(
-            'input[name="notes"]',
+            "input[name=\"notes\"]",
           ) as HTMLInputElement | null;
 
           // Check that the elements exist, and then assign their values to the entryData object
