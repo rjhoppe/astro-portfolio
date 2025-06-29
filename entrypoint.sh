@@ -11,7 +11,7 @@ APP_PID=$!
 # Wait a moment for the app to start, then run migrations
 sleep 5
 echo "Running database migrations..."
-tsx src/lib/server/db.ts
+node ./dist/server/lib/server/db.js
 
 # Wait for the application to finish
 wait $APP_PID 
