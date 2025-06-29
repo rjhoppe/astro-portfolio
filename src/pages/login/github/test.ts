@@ -6,9 +6,9 @@ export const GET: APIRoute = async () => {
       message: "GitHub OAuth test route is working",
       timestamp: new Date().toISOString(),
       env: {
-        PROD: import.meta.env.PROD,
-        hasClientId: !!import.meta.env.GITHUB_CLIENT_ID,
-        hasClientSecret: !!import.meta.env.GITHUB_CLIENT_SECRET,
+        PROD: process.env.NODE_ENV === "production",
+        hasClientId: !!process.env.GITHUB_CLIENT_ID,
+        hasClientSecret: !!process.env.GITHUB_CLIENT_SECRET,
       },
     }),
     {
