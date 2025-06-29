@@ -3,8 +3,8 @@ FROM node:lts-alpine AS prod-deps
 WORKDIR /app
 # Install system dependencies needed for better-sqlite3 at runtime
 RUN apk add --no-cache libc6-compat
-# Install pnpm
-RUN npm install -g pnpm
+# Install pnpm with specific version
+RUN npm install -g pnpm@9.5.0
 # Copy package files and install only production dependencies
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --prod --frozen-lockfile
@@ -14,8 +14,8 @@ FROM node:lts-alpine AS builder
 WORKDIR /app
 # Install build-time system dependencies
 RUN apk add --no-cache python3 make g++ gcc musl-dev
-# Install pnpm
-RUN npm install -g pnpm
+# Install pnpm with specific version
+RUN npm install -g pnpm@9.5.0
 # Copy all source files
 COPY . .
 # Copy production node_modules and install dev dependencies
