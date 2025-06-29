@@ -13,14 +13,23 @@ vi.mock("import.meta", () => ({
   },
 }));
 
-// Mock URLSearchParams globally
-global.URLSearchParams = vi.fn(() => ({
-  get: vi.fn(() => "test-password"),
-})) as any;
+// Mock window.location to prevent redirect issues
+const mockLocation = {
+  search: "?password=test-password",
+  href: "",
+};
+
+Object.defineProperty(window, "location", {
+  value: mockLocation,
+  writable: true,
+  configurable: true,
+});
 
 describe("Gifts", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Reset location mock
+    mockLocation.href = "";
     // Mock successful API response
     vi.mocked(fetch).mockResolvedValue({
       json: () => Promise.resolve({ body: [] }),
