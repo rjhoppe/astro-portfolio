@@ -14,6 +14,13 @@ const callbackUrl = import.meta.env.PROD
   ? "https://rjhoppe.dev/login/github/callback"
   : "http://localhost:4321/login/github/callback";
 
+console.log("OAuth configuration:", {
+  hasClientId: !!import.meta.env.GITHUB_CLIENT_ID,
+  hasClientSecret: !!import.meta.env.GITHUB_CLIENT_SECRET,
+  callbackUrl,
+  isProd: import.meta.env.PROD,
+});
+
 export const github = new GitHub(
   import.meta.env.GITHUB_CLIENT_ID,
   import.meta.env.GITHUB_CLIENT_SECRET,
