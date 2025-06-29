@@ -32,6 +32,8 @@ RUN pnpm run build
 FROM node:lts-alpine AS final
 WORKDIR /app
 ENV NODE_ENV=production
+ENV HOST=0.0.0.0
+ENV PORT=4321
 
 # Create and use a non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
