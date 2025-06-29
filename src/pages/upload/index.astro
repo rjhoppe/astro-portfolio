@@ -2,10 +2,19 @@
 import PageLayout from "@layouts/PageLayout.astro";
 import { UPLOAD } from "@consts";
 
-const assignees = ['Justin', 'Kaylin', 'Liz', 'Lorraine', 'Rachel', 'Rick', 'Tyler', 'Other']
+const assignees = [
+  "Justin",
+  "Kaylin",
+  "Liz",
+  "Lorraine",
+  "Rachel",
+  "Rick",
+  "Tyler",
+  "Other",
+];
 
 if (Astro.locals.user === null) {
-    return Astro.redirect("/login")
+  return Astro.redirect("/login");
 }
 ---
 
@@ -14,59 +23,90 @@ if (Astro.locals.user === null) {
     <div id="header-block" class="flex text-start">
       <h1 class="text-xl font-semibold">Add New Gifts</h1>
       <div id="btn-group" class="flex">
-        <button id="restore-btn" class="ml-20 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+        <button
+          id="restore-btn"
+          class="ml-20 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+        >
           Restore
         </button>
-        <button id="add-row-btn" class="mr-12 ml-4 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+        <button
+          id="add-row-btn"
+          class="mr-12 ml-4 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+        >
           + Add Record
         </button>
       </div>
     </div>
-    <form id="form-block" action="/api/submit" method="POST">
+    <form id="form-block" action="/api/gifts/submit" method="POST">
       <div id="entries">
         <div id="form-entry-1" data-group="gift-entries" class="flex">
           <div class="flex flex-col pr-8 max-w-56">
             <label class="my-2">Name</label>
-            <input class="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2" type="text" name="name" required />
+            <input
+              class="border border-black/15 bg-transparent dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
+              type="text"
+              name="name"
+              required
+            />
           </div>
           <div class="flex flex-col pr-8">
             <label class="my-2">Link</label>
-            <input class="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2" type="url" name="link" required />
+            <input
+              class="border border-black/15 bg-transparent dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
+              type="url"
+              name="link"
+              required
+            />
           </div>
           <div class="flex flex-col pr-8 max-w-40">
             <label class="my-2">Assignee</label>
-            <select name="assignee" class="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2">
+            <select
+              name="assignee"
+              class="border border-black/15 bg-transparent dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
+            >
               <option value="Unassigned" selected>Unassigned</option>
-              {assignees.map((val) => (
-                <option value={val}>{val}</option>
-              ))}
+              {assignees.map((val) => <option value={val}>{val}</option>)}
             </select>
           </div>
           <div class="flex flex-col pr-8">
             <label class="my-2">Bought?</label>
-            <select name="bought" class="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2">
+            <select
+              name="bought"
+              class="border border-black/15 bg-transparent dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
+            >
               <option value="Yes">Yes</option>
               <option value="No" selected>No</option>
             </select>
           </div>
           <div class="flex flex-col">
             <label class="my-2">Notes</label>
-            <input class="border border-stone-600 rounded-lg bg-stone-700 py-1 px-2" type="text" name="notes" />
+            <input
+              class="border border-black/15 bg-transparent dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
+              type="text"
+              name="notes"
+            />
           </div>
           <div class="flex">
-            <button class="flex ml-3 mt-11" data-group="delete-entry-btns" onclick="deleteFormRow(this)">X</button>
+            <button
+              class="flex ml-3 mt-11"
+              data-group="delete-entry-btns"
+              onclick="deleteFormRow(this)">X</button
+            >
           </div>
         </div>
       </div>
       <div id="submit-btn-block">
-        <button id="submit-btn" class="mt-8 mr-12 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out">
+        <button
+          id="submit-btn"
+          class="mt-8 mr-12 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+        >
           Submit
         </button>
       </div>
     </form>
   </div>
   <script>
-import type { GiftData } from "@types";
+    import type { GiftData } from "@types";
 
     declare global {
       interface Window {
@@ -74,47 +114,63 @@ import type { GiftData } from "@types";
       }
     }
 
-    const formEntry = document.getElementById('form-entry-1')
-    document.getElementById('add-row-btn')?.addEventListener('click', () => {
+    const formEntry = document.getElementById("form-entry-1");
+    document.getElementById("add-row-btn")?.addEventListener("click", () => {
       if (formEntry) {
         const duplicateRow = formEntry.cloneNode(true) as HTMLElement;
 
         // Find all the gift entries (the containers for the form rows)
-        const giftRecords = document.querySelectorAll('[data-group="gift-entries"]');
-      
+        const giftRecords = document.querySelectorAll(
+          "[data-group=\"gift-entries\"]",
+        );
+
         // Find the parent container of the last gift entry row
-        const lastRecord = giftRecords[giftRecords.length - 1].parentElement
+        const lastRecord = giftRecords[giftRecords.length - 1].parentElement;
 
         // Ensure the parent exists
         if (lastRecord) {
-          duplicateRow.id = 'divToDuplicate' + Date.now();
+          duplicateRow.id = "divToDuplicate" + Date.now();
           lastRecord.appendChild(duplicateRow);
         } else {
-          console.error('Parent container for last record not found.');
+          console.error("Parent container for last record not found.");
         }
       }
     });
 
-    const form = document.getElementById('form-block') as HTMLFormElement | null;
+    const form = document.getElementById(
+      "form-block",
+    ) as HTMLFormElement | null;
     if (form) {
-      form.addEventListener('submit', async (event) => {
+      form.addEventListener("submit", async (event) => {
         event.preventDefault(); // Prevent default form submission
-        const giftEntries = document.querySelectorAll('[data-group="gift-entries"]');
-        giftEntries.forEach(async gift => {
+        const giftEntries = document.querySelectorAll(
+          "[data-group=\"gift-entries\"]",
+        );
+        giftEntries.forEach(async (gift) => {
           // Extract data from each entry
           const giftData: GiftData = {
-            name: '',
-            link: '',
-            assignee: '',
-            bought: '',
-            notes: ''
+            name: "",
+            link: "",
+            assignee: "",
+            bought: "",
+            notes: "",
           };
 
-          const nameInput = gift.querySelector('input[name="name"]') as HTMLInputElement | null;
-          const linkInput = gift.querySelector('input[name="link"]') as HTMLInputElement | null;
-          const assigneeSelect = gift.querySelector('select[name="assignee"]') as HTMLSelectElement | null;
-          const boughtSelect = gift.querySelector('select[name="bought"]') as HTMLSelectElement | null;
-          const notesInput = gift.querySelector('input[name="notes"]') as HTMLInputElement | null;
+          const nameInput = gift.querySelector(
+            "input[name=\"name\"]",
+          ) as HTMLInputElement | null;
+          const linkInput = gift.querySelector(
+            "input[name=\"link\"]",
+          ) as HTMLInputElement | null;
+          const assigneeSelect = gift.querySelector(
+            "select[name=\"assignee\"]",
+          ) as HTMLSelectElement | null;
+          const boughtSelect = gift.querySelector(
+            "select[name=\"bought\"]",
+          ) as HTMLSelectElement | null;
+          const notesInput = gift.querySelector(
+            "input[name=\"notes\"]",
+          ) as HTMLInputElement | null;
 
           // Check that the elements exist, and then assign their values to the entryData object
           if (nameInput) giftData.name = nameInput.value;
@@ -124,8 +180,8 @@ import type { GiftData } from "@types";
           if (notesInput) giftData.notes = notesInput.value;
 
           try {
-            const response = await fetch('/api/gifts/submit', {
-              method: 'POST',
+            const response = await fetch("/api/gifts/submit", {
+              method: "POST",
               body: JSON.stringify(giftData),
             });
             const result = await response.json();
@@ -133,20 +189,20 @@ import type { GiftData } from "@types";
               alert(result.message); // Success message
             }
           } catch (error) {
-            alert(error)
+            alert(error);
           }
         });
-        alert('Data successfully uploaded to database')
+        alert("Data successfully uploaded to database");
       });
     } else {
-      console.error('Form element not found.');
+      console.error("Form element not found.");
     }
 
     window.deleteFormRow = (button: HTMLButtonElement) => {
-      const row: HTMLElement = button.closest('div')?.parentNode as HTMLElement;
+      const row: HTMLElement = button.closest("div")?.parentNode as HTMLElement;
       if (row && row.parentNode) {
-        row.parentNode.removeChild(row)
+        row.parentNode.removeChild(row);
       }
-    }
+    };
   </script>
 </PageLayout>

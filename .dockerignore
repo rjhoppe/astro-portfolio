@@ -10,6 +10,74 @@ README.md
 notes.txt
 db.sqlite3
 .vscode/
-__tests__/
+src/__tests__/
 local/
 .github/
+prod_run.sh
+local_build.sh
+prod.env
+.env
+drizzle.config.ts
+vitest.config.ts
+vitest.setup.ts
+
+# Additional development and build artifacts
+*.log
+*.tsbuildinfo
+coverage/
+.nyc_output/
+.cache/
+.temp/
+.tmp/
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# Package manager files
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+
+# Environment files
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Documentation
+docs/
+*.md
+
+# Backup files
+*.bak
+*.backup
+
+# Docker files (to avoid copying into container)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+test-results.xml
+
+# Build tools
+.eslintcache
+.stylelintcache

@@ -8,10 +8,11 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "preview:network": "astro preview --host",
-    "prepare": "husky install",
+    "prepare": "husky",
     "astro": "astro",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "vitest",
     "generate": "drizzle-kit generate --dialact=sqlite --schema=./src/models/schema.ts",
     "migrate": "tsx src/utils/db.ts"
   },
@@ -28,6 +29,8 @@
     "@fontsource/lora": "^5.1.1",
     "@oslojs/crypto": "^1.0.1",
     "@oslojs/encoding": "^1.1.0",
+    "@sentry/astro": "^9.1.0",
+    "@sentry/profiling-node": "^9.1.0",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^18.3.18",
@@ -53,6 +56,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@sentry/vite-plugin": "^3.1.2",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@types/better-sqlite3": "^7.6.12",
     "@types/jsdom": "^21.1.7",
@@ -68,10 +73,12 @@
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "lint-staged": "^15.3.0",
+    "postcss": "^8.5.6",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
+    "vite": "^6.3.5",
     "vitest": "^3.0.5"
   },
   "lint-staged": {

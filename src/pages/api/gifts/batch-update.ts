@@ -13,7 +13,6 @@ interface GiftUpdate {
 }
 
 export const PUT: APIRoute = async ({ request }): Promise<Response> => {
-  // add jwt auth
   const isNotRateLimited = rateLimit(request);
   if (request.method === "PUT" && isNotRateLimited)
     try {

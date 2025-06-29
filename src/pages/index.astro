@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
@@ -10,27 +10,34 @@ import Avatar from "@components/Avatar.astro";
 import Details from "@components/Details.astro";
 import Socials from "@components/Socials.astro";
 
-// TODO: So many types to fix - guh
-const blog = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+type Blog = CollectionEntry<"blog">;
+type Project = CollectionEntry<"projects">;
+type WorkWithContent = CollectionEntry<"work"> & {
+  Content: any;
+};
+
+const blog: Blog[] = (await getCollection("blog"))
+  .filter((post: Blog) => !post.data.draft)
+  .sort((a: Blog, b: Blog) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
-const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+const projects: Project[] = (await getCollection("projects"))
+  .filter((project: Project) => !project.data.draft)
+  .sort(
+    (a: Project, b: Project) => b.data.date.valueOf() - a.data.date.valueOf(),
+  )
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
 
 const allwork = (await getCollection("work"))
   .sort(
-    (a, b) =>
+    (a: CollectionEntry<"work">, b: CollectionEntry<"work">) =>
       new Date(b.data.dateStart).valueOf() -
       new Date(a.data.dateStart).valueOf(),
   )
   .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
 
-const work = await Promise.all(
-  allwork.map(async (item) => {
+const work: WorkWithContent[] = await Promise.all(
+  allwork.map(async (item: CollectionEntry<"work">) => {
     const { Content } = await item.render();
     return { ...item, Content };
   }),
@@ -63,11 +70,13 @@ const work = await Promise.all(
             <i>real</i> problems, like "Oh God, I am already at the grocery store,
             what do I want to eat for dinner this week?"
           </p>
-          <p>
+          <p class="animate">
             I enjoy writing as well and use the blog featured here as a writing
             exercise to house my collection of rants and ravings.
           </p>
-          <p>Read at your own risk and remember: It's not for you 😉</p>
+          <p class="animate">
+            Read at your own risk and remember: It's not for you 😉
+          </p>
         </article>
       </section>
 
@@ -78,7 +87,7 @@ const work = await Promise.all(
         </div>
         <ul class="flex flex-col gap-4">
           {
-            blog.map((post) => (
+            blog.map((post: Blog) => (
               <li>
                 <ArrowCard entry={post} />
               </li>
@@ -96,7 +105,7 @@ const work = await Promise.all(
         </div>
         <ul class="flex flex-col space-y-4">
           {
-            work.map((entry) => (
+            work.map((entry: WorkWithContent) => (
               <li>
                 <div class="font-semibold text-black dark:text-white">
                   {entry.data.company}
@@ -125,7 +134,7 @@ const work = await Promise.all(
         </div>
         <ul class="flex flex-col gap-4">
           {
-            projects.map((project) => (
+            projects.map((project: Project) => (
               <li>
                 <ArrowCard entry={project} />
               </li>

@@ -2,64 +2,39 @@
 import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 
-const isAdmin = (Astro.locals.session !== null)
+const isAdmin = Astro.locals.session !== null;
 ---
 
 <header>
   <Container>
     <div class="flex flex-wrap gap-y-2 justify-center">
       <nav class="flex gap-1">
-        <Link href="/">
-          home
-        </Link>
+        <Link href="/"> home </Link>
         <span>
           {`/`}
         </span>
-        <Link href="/blog">
-          blog
-        </Link>
+        <Link href="/blog"> blog </Link>
         <span>
           {`/`}
         </span>
-        <Link href="/work">
-          work
-        </Link>
+        <Link href="/work"> work </Link>
         <span>
           {`/`}
         </span>
-        <Link href="/projects">
-          projects
-        </Link>
+        <Link href="/projects"> projects </Link>
         {
-          isAdmin 
-          ? 
+          isAdmin ? (
             <>
-              <span>
-                {`/`}
-              </span>
-              <Link href="/admin">
-                admin
-              </Link>
-              <span>
-                {`/`}
-              </span>
-              <Link href="/gifts">
-                gifts
-              </Link>
-              <span>
-                {`/`}
-              </span>
-              <Link href="/upload">
-                upload
-              </Link>
-              <span>
-                {`/`}
-              </span>
-              <Link href="/login">
-                logout
-              </Link>
+              <span>{`/`}</span>
+              <Link href="/admin">admin</Link>
+              <span>{`/`}</span>
+              <Link href="/gifts">gifts</Link>
+              <span>{`/`}</span>
+              <Link href="/upload">upload</Link>
+              <span>{`/`}</span>
+              <Link href="/login">logout</Link>
             </>
-          : null
+          ) : null
         }
       </nav>
     </div>

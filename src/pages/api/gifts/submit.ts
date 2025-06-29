@@ -55,10 +55,10 @@ export const POST: APIRoute = async ({ request }): Promise<Response> => {
     // Ensure no undefined or null values before inserting into the database
     const finalValues = {
       name: formValues.name ?? "", // Ensure non-null/undefined values
-      link: formValues.link ?? "", // Ensure non-null/undefined values
-      bought: formValues.bought ?? "", // Ensure non-null/undefined values
-      assignee: formValues.assignee ?? "", // Ensure non-null/undefined values
-      notes: formValues.notes ?? null, // Optional, can be null if empty
+      link: formValues.link ?? "",
+      bought: formValues.bought ?? "",
+      assignee: formValues.assignee ?? "",
+      notes: formValues.notes ?? null,
     };
 
     // Respond to the client
