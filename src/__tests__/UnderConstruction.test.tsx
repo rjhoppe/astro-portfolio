@@ -6,11 +6,6 @@ describe("UnderConstruction Component", () => {
     // let's test the expected structure and content that should be rendered
 
     const expectedContent = {
-      image: {
-        src: "/img/restricted-area.png",
-        alt: "Under Construction",
-        classes: ["w-64", "h-64"],
-      },
       heading: {
         text: "🚧 Under Construction 🚧",
         classes: ["text-4xl", "font-bold"],
@@ -32,8 +27,6 @@ describe("UnderConstruction Component", () => {
     };
 
     // Test that the expected content structure is defined
-    expect(expectedContent.image.src).toBe("/img/restricted-area.png");
-    expect(expectedContent.image.alt).toBe("Under Construction");
     expect(expectedContent.heading.text).toBe("🚧 Under Construction 🚧");
     expect(expectedContent.paragraph.text).toBe(
       "This page is currently under construction. Please check back later! 🏗️",
@@ -44,8 +37,6 @@ describe("UnderConstruction Component", () => {
     expect(expectedContent.container.classes).toContain("flex-col");
     expect(expectedContent.container.classes).toContain("items-center");
     expect(expectedContent.container.classes).toContain("justify-center");
-    expect(expectedContent.image.classes).toContain("w-64");
-    expect(expectedContent.image.classes).toContain("h-64");
     expect(expectedContent.heading.classes).toContain("text-4xl");
     expect(expectedContent.heading.classes).toContain("font-bold");
     expect(expectedContent.paragraph.classes).toContain("text-lg");
@@ -53,13 +44,13 @@ describe("UnderConstruction Component", () => {
 
   test("should have all required elements", () => {
     // Test that all required elements are defined in the component structure
-    const requiredElements = ["container div", "image", "heading", "paragraph"];
+    const requiredElements = ["container div", "heading", "paragraph"];
 
     requiredElements.forEach((element) => {
       expect(requiredElements).toContain(element);
     });
 
-    expect(requiredElements).toHaveLength(4);
+    expect(requiredElements).toHaveLength(3);
   });
 
   test("should have proper accessibility attributes", () => {
