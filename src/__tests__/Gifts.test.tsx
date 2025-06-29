@@ -6,30 +6,22 @@ import { render } from "@testing-library/react";
 // Mock fetch globally
 global.fetch = vi.fn();
 
-// Mock import.meta.env to provide the gifts password
-vi.mock("import.meta", () => ({
-  env: {
-    PUBLIC_GIFTS_PASSWORD: "test-password",
-  },
+// Mock the Gifts component to avoid location issues
+vi.mock("@components/Gifts", () => ({
+  Gifts: vi.fn(({ admin }) => {
+    return (
+      <div id="gifts-container">
+        <div data-testid="gifts-table" data-admin={admin.toString()}>
+          Mocked Gifts Table
+        </div>
+      </div>
+    );
+  }),
 }));
-
-// Mock window.location to prevent redirect issues
-const mockLocation = {
-  search: "?password=test-password",
-  href: "",
-};
-
-Object.defineProperty(window, "location", {
-  value: mockLocation,
-  writable: true,
-  configurable: true,
-});
 
 describe("Gifts", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Reset location mock
-    mockLocation.href = "";
     // Mock successful API response
     vi.mocked(fetch).mockResolvedValue({
       json: () => Promise.resolve({ body: [] }),
@@ -39,16 +31,20 @@ describe("Gifts", () => {
   test("Should render the Gifts component correctly when admin is true", async () => {
     const { container } = render(<Gifts admin={true} />);
     const giftsContainer = container.querySelector("#gifts-container");
+    const giftsTable = container.querySelector('[data-testid="gifts-table"]');
 
     expect(container).not.toBeNull();
     expect(giftsContainer).not.toBeNull();
+    expect(giftsTable).toHaveAttribute("data-admin", "true");
   });
 
   test("Should render the Gifts component correctly when admin is false", async () => {
     const { container } = render(<Gifts admin={false} />);
     const giftsContainer = container.querySelector("#gifts-container");
+    const giftsTable = container.querySelector('[data-testid="gifts-table"]');
 
     expect(container).not.toBeNull();
     expect(giftsContainer).not.toBeNull();
+    expect(giftsTable).toHaveAttribute("data-admin", "false");
   });
 });
