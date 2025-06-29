@@ -39,10 +39,7 @@ COPY --from=builder /app/dist ./dist
 # Copy migrations from the builder stage
 COPY --from=builder /app/drizzle ./drizzle
 # Copy the migration script directly from source
-COPY --from=builder /app/src/lib/server/db.js ./db.js
-# Copy entrypoint script
-COPY --from=builder /app/entrypoint.sh ./
-RUN chmod +x ./entrypoint.sh
+COPY --from=builder /app/migrate.js ./migrate.js
 
 # Create and set permissions for the data directory
 RUN mkdir /data && chown -R appuser:appgroup /data
@@ -54,5 +51,4 @@ USER appuser
 
 EXPOSE 4321
 
-# Start the app using the entrypoint script
-CMD ["./entrypoint.sh"]
+CMD ["sh", "-c", "node migrate.js && node ./dist/server/entry.mjs"]
