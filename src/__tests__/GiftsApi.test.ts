@@ -3,21 +3,41 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import { DELETE } from "@pages/api/gifts/delete-gift/[giftId]";
 import { GET } from "@pages/api/gifts/data";
 
+// Global mock state
+let mockDbError = false;
+let mockDbData: any[] = [];
+
 // Mock the db module
-vi.mock("@lib/server/db", () => ({
-  db: {
-    select: vi.fn(() => ({
-      from: vi.fn(() => Promise.resolve([])),
-    })),
-    delete: vi.fn(() => ({
-      where: vi.fn(() => ({
-        limit: vi.fn(() => ({
-          execute: vi.fn(() => Promise.resolve({ rowCount: 1 })),
-        })),
+vi.mock("@lib/server/db", () => {
+  const mockSelect = vi.fn(() => ({
+    from: vi.fn(() => {
+      if (mockDbError) {
+        return Promise.reject(new Error("DB Error"));
+      }
+      return Promise.resolve(mockDbData);
+    }),
+  }));
+
+  const mockDelete = vi.fn(() => ({
+    where: vi.fn(() => ({
+      limit: vi.fn(() => ({
+        execute: vi.fn(() => {
+          if (mockDbError) {
+            return Promise.reject(new Error("DB Error"));
+          }
+          return Promise.resolve({ rowCount: 1 });
+        }),
       })),
     })),
-  },
-}));
+  }));
+
+  return {
+    db: {
+      select: mockSelect,
+      delete: mockDelete,
+    },
+  };
+});
 
 vi.mock("@lib/server/ratelimit", () => ({
   rateLimit: vi.fn(() => true),
@@ -26,11 +46,13 @@ vi.mock("@lib/server/ratelimit", () => ({
 describe("Gifts API - GET /api/gifts/data", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockDbError = false;
+    mockDbData = [];
   });
 
   test("should return all gifts with a 200 status code", async () => {
     // Arrange
-    const mockGifts = [
+    mockDbData = [
       { id: 1, name: "Gift 1", price: "100", link: "https://example.com/1" },
       { id: 2, name: "Gift 2", price: "200", link: "https://example.com/2" },
     ];
@@ -50,11 +72,13 @@ describe("Gifts API - GET /api/gifts/data", () => {
 
     // Assert
     expect(response.status).toBe(200);
-    expect(data.body).toEqual(mockGifts);
+    expect(data.body).toEqual(mockDbData);
   });
 
   test("should return 500 if there is a database error", async () => {
     // Arrange
+    mockDbError = true;
+
     const request = new Request("http://example.com/api/gifts/data", {
       method: "GET",
     });
@@ -77,11 +101,13 @@ describe("Gifts API - GET /api/gifts/data", () => {
 describe("Gifts API - DELETE /api/gifts/delete-gift/:giftId", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockDbError = false;
   });
 
   test("should delete a gift and return 200", async () => {
     // Arrange
     const giftId = 123;
+
     const request = new Request(
       `http://example.com/api/gifts/delete-gift/${giftId}`,
       {
@@ -125,7 +151,9 @@ describe("Gifts API - DELETE /api/gifts/delete-gift/:giftId", () => {
 
   test("should return 500 on database error", async () => {
     // Arrange
+    mockDbError = true;
     const giftId = 456;
+
     const request = new Request(
       `http://example.com/api/gifts/delete-gift/${giftId}`,
       {
