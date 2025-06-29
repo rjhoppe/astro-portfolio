@@ -12,6 +12,7 @@
     "astro": "astro",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "vitest",
     "generate": "drizzle-kit generate --dialact=sqlite --schema=./src/models/schema.ts",
     "migrate": "tsx src/utils/db.ts"
   },
