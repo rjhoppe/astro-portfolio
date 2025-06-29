@@ -7,7 +7,7 @@ RUN apk add --no-cache libc6-compat
 RUN npm install -g pnpm@9.5.0
 # Copy package files and install only production dependencies
 COPY package.json pnpm-lock.yaml* ./
-RUN pnpm install --prod --prefer-offline
+RUN pnpm install --prod --prefer-offline --ignore-scripts
 
 # Stage 2: Build the application
 FROM node:lts-alpine AS builder
@@ -20,7 +20,7 @@ RUN npm install -g pnpm@9.5.0
 COPY . .
 # Copy production node_modules and install dev dependencies
 COPY --from=prod-deps /app/node_modules ./node_modules
-RUN pnpm install --prefer-offline
+RUN pnpm install --prefer-offline --ignore-scripts
 # Build the application
 RUN pnpm run build
 
