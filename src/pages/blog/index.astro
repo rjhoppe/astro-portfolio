@@ -38,7 +38,7 @@ const featureFlags = {
       <div class="animate font-semibold text-black dark:text-white">Blog</div>
       {
         featureFlags.showUnderConstruction ? (
-          <UnderConstruction featureFlag={featureFlags.showUnderConstruction} />
+          <UnderConstruction />
         ) : (
           <div class="space-y-4">
             {years.map((year) => (

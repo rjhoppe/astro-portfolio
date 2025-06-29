@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 import { DELETE } from "@pages/api/gifts/delete-gift/[giftId]";
 import { GET } from "@pages/api/gifts/data";
@@ -6,6 +6,16 @@ import { GET } from "@pages/api/gifts/data";
 // Global mock state
 let mockDbError = false;
 let mockDbData: any[] = [];
+
+// Mock console.error to suppress warnings in tests
+const originalConsoleError = console.error;
+beforeEach(() => {
+  console.error = vi.fn();
+});
+
+afterEach(() => {
+  console.error = originalConsoleError;
+});
 
 // Mock the db module
 vi.mock("@lib/server/db", () => {
