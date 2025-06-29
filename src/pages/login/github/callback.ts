@@ -4,14 +4,14 @@ import {
   setSessionTokenCookie,
 } from "@lib/server/session";
 
-import type { APIContext } from "astro";
+import type { APIRoute } from "astro";
 import type { OAuth2Tokens } from "arctic";
 import { db } from "@lib/server/db";
 import { eq } from "drizzle-orm";
 import { github } from "@lib/server/oauth";
 import { userTable } from "@models/schema";
 
-export async function GET(context: APIContext): Promise<Response> {
+export const GET: APIRoute = async (context) => {
   const code = context.url.searchParams.get("code");
   const state = context.url.searchParams.get("state");
   const storedState = context.cookies.get("github_oauth_state")?.value ?? null;
@@ -73,4 +73,4 @@ export async function GET(context: APIContext): Promise<Response> {
   const session = await createSession(sessionToken, user.id);
   setSessionTokenCookie(context, sessionToken, session.expiresAt);
   return context.redirect("/");
-}
+};
