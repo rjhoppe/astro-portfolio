@@ -42,6 +42,8 @@ COPY . .
 # Copy production node_modules and install dev dependencies
 COPY --from=prod-deps /app/node_modules ./node_modules
 RUN pnpm install --frozen-lockfile
+# Rebuild any native dependencies that might be needed for dev
+RUN pnpm rebuild better-sqlite3
 # Build the application
 RUN pnpm run build
 

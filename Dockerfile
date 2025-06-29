@@ -8,6 +8,8 @@ RUN npm install -g pnpm@9.5.0
 # Copy package files and install only production dependencies
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --prod --prefer-offline --ignore-scripts
+# Then specifically rebuild better-sqlite3 to compile native bindings
+RUN pnpm rebuild better-sqlite3
 
 # Stage 2: Build the application
 FROM node:lts-alpine AS builder
@@ -21,6 +23,8 @@ COPY . .
 # Copy production node_modules and install dev dependencies
 COPY --from=prod-deps /app/node_modules ./node_modules
 RUN pnpm install --prefer-offline --ignore-scripts
+# Rebuild any native dependencies that might be needed for dev
+RUN pnpm rebuild better-sqlite3
 # Build the application
 RUN pnpm run build
 
