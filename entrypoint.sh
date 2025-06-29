@@ -28,7 +28,7 @@ echo "=== Waiting 5 seconds before running migrations ==="
 sleep 5
 
 echo "=== Checking for migration file ==="
-if [ -f "./dist/server/lib/server/db.js" ]; then
+if [ -f "./db.js" ]; then
     echo "✓ Found db.js migration file"
 else
     echo "✗ db.js migration file not found"
@@ -37,7 +37,7 @@ else
 fi
 
 echo "=== Running database migrations ==="
-node ./dist/server/lib/server/db.js
+node ./db.js
 echo "=== Migrations completed ==="
 
 # Wait for the application to finish
