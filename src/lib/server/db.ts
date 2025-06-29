@@ -1,8 +1,9 @@
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { sql } from "drizzle-orm";
-import Database from "better-sqlite3";
 import * as schema from "../../models/schema.ts";
+
+import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
+import { sql } from "drizzle-orm";
 
 const isProduction = process.env.NODE_ENV === "production";
 const dbPath = isProduction ? "/data/db.sqlite3" : "./db.sqlite3";

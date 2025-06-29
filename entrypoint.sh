@@ -3,10 +3,15 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Run database migrations
-echo "Running database migrations..."
-node ./dist/server/migrate.js # We will create this file in the next step
-
-# Start the application
+# Start the application in the background
 echo "Starting application..."
-exec node ./dist/server/entry.mjs 
+node ./dist/server/entry.mjs &
+APP_PID=$!
+
+# Wait a moment for the app to start, then run migrations
+sleep 5
+echo "Running database migrations..."
+tsx src/lib/server/db.ts
+
+# Wait for the application to finish
+wait $APP_PID 
