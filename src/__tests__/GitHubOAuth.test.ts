@@ -1,39 +1,8 @@
-import {
-  afterAll,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  test,
-  vi,
-} from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { createSession, setSessionTokenCookie } from "@lib/server/session";
 
 import { GET as callbackHandler } from "@pages/login/github/callback";
 import { GET as loginHandler } from "@pages/login/github/index";
-
-// Mock environment variables
-vi.mock("astro:env", () => ({
-  env: {
-    GITHUB_CLIENT_ID: "test-client-id",
-    GITHUB_CLIENT_SECRET: "test-client-secret",
-    PROD: false,
-  },
-}));
-
-// Mock console methods to avoid noise in tests
-const originalConsoleLog = console.log;
-const originalConsoleError = console.error;
-
-beforeAll(() => {
-  console.log = vi.fn();
-  console.error = vi.fn();
-});
-
-afterAll(() => {
-  console.log = originalConsoleLog;
-  console.error = originalConsoleError;
-});
 
 // Mock the GitHub OAuth module
 vi.mock("@lib/server/oauth", () => ({
