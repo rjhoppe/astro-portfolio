@@ -5,13 +5,16 @@ import { sql } from "drizzle-orm";
 
 console.log("Starting database migration...");
 
-const isProduction = process.env.NODE_ENV === "production";
-const dbPath = isProduction ? "/data/db.sqlite3" : "./db.sqlite3";
+const isDockerized =
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "development";
+const dbPath = isDockerized ? "/data/db.sqlite3" : "./db.sqlite3";
 
 console.log(`Database path: ${dbPath}`);
-console.log(`Environment: ${isProduction ? "production" : "development"}`);
+console.log(`Environment: ${process.env.NODE_ENV}`);
 
 try {
+  console.log("Runtime attempting to open database at:", dbPath);
   const sqlite = new Database(dbPath);
   const db = drizzle(sqlite);
 

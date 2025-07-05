@@ -50,7 +50,7 @@ COPY --from=builder /app/migrate.js ./migrate.js
 # Create and set permissions for the data directory
 RUN mkdir /data && chown -R appuser:appgroup /data
 VOLUME /data
-ENV DB_PATH=/data/database.sqlite
+# ENV DB_PATH=/data/db.sqlite3
 
 # Switch to the non-root user
 USER appuser

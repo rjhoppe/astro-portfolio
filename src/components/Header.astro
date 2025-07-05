@@ -3,6 +3,7 @@ import Container from "@components/Container.astro";
 import Link from "@components/Link.astro";
 
 const isAdmin = Astro.locals.session !== null;
+const hideBlog = true;
 ---
 
 <header>
@@ -13,10 +14,14 @@ const isAdmin = Astro.locals.session !== null;
         <span>
           {`/`}
         </span>
-        <Link href="/blog"> blog </Link>
-        <span>
-          {`/`}
-        </span>
+        {
+          hideBlog ? null : (
+            <>
+              <Link href="/blog"> blog </Link>
+              <span>{`/`}</span>
+            </>
+          )
+        }
         <Link href="/work"> work </Link>
         <span>
           {`/`}

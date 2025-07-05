@@ -1,7 +1,7 @@
 import { GitHub } from "arctic";
 
 // Validate required environment variables only in non-test environments
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== "production") {
   if (!process.env.GITHUB_CLIENT_ID) {
     throw new Error("GITHUB_CLIENT_ID environment variable is required");
   }
@@ -17,13 +17,12 @@ const callbackUrl =
     ? "https://rjhoppe.dev/login/github/callback"
     : "http://localhost:4321/login/github/callback";
 
-// Only log in non-test environments
-if (process.env.NODE_ENV !== "test") {
+// Only log in test environments
+if (process.env.NODE_ENV !== "production") {
   console.log("OAuth configuration:", {
     hasClientId: !!process.env.GITHUB_CLIENT_ID,
     hasClientSecret: !!process.env.GITHUB_CLIENT_SECRET,
     callbackUrl,
-    isProd: process.env.NODE_ENV === "production",
   });
 }
 

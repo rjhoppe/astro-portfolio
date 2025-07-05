@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "NODE_ENV=local astro dev",
     "dev:network": "astro dev --host",
     "build": "astro check && astro build",
     "preview": "astro preview",
