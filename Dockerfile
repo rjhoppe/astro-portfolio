@@ -45,7 +45,7 @@ COPY --from=builder /app/dist ./dist
 # Copy migrations from the builder stage
 COPY --from=builder /app/drizzle ./drizzle
 # Copy the migration script directly from source
-COPY --from=builder /app/migrate.js ./migrate.js
+COPY --from=builder /app/migrate.mjs ./migrate.mjs
 
 # Create and set permissions for the data directory
 RUN mkdir /data && chown -R appuser:appgroup /data
@@ -57,4 +57,4 @@ USER appuser
 
 EXPOSE 4321
 
-CMD ["sh", "-c", "node migrate.js && node ./dist/server/entry.mjs"]
+CMD ["sh", "-c", "node migrate.mjs && node ./dist/server/entry.mjs"]

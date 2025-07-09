@@ -10,21 +10,46 @@ export const Gifts = ({ admin }: GiftProps) => {
     const urlParams = new URLSearchParams(window.location.search);
     const password = urlParams.get("password");
 
-    if (password !== import.meta.env.PUBLIC_GIFTS_PASSWORD && !admin) {
-      window.location.href = "/forbidden";
-    } else {
+    if (admin) {
+      // If user is admin, authorize immediately
       setIsAuthorized(true);
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
-  }, []);
+
+    if (!password) {
+      // No password provided, redirect or block
+      window.location.href = "/forbidden";
+      return;
+    }
+
+    // Call server API to verify password
+    fetch(`/api/check-password?password=${encodeURIComponent(password)}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then((data) => {
+        if (data.authorized) {
+          setIsAuthorized(true);
+        } else {
+          window.location.href = "/forbidden";
+        }
+      })
+      .catch(() => {
+        window.location.href = "/forbidden";
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [admin]);
 
   if (isLoading) {
-    // Add loading component later
     return <div>Loading...</div>;
   }
 
   if (!isAuthorized) {
-    return null; // Don't show anything until we've checked authorization
+    return null;
   }
 
   return (
