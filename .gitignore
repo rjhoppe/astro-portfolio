@@ -27,3 +27,4 @@ notes.txt
 db.sqlite3
 local/
 prod_run.sh
+local_run.sh

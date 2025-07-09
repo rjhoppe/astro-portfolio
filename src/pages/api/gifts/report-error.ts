@@ -8,11 +8,26 @@ type IssueBody = {
 
 export const POST: APIRoute = async ({ request }): Promise<Response> => {
   const isNotRateLimited = rateLimit(request);
-  if (request.method === "POST" && isNotRateLimited) {
-    try {
-      const data = (await request.json()) as IssueBody;
-      const resend = new Resend(import.meta.env.RESEND_API_KEY);
-      const email = import.meta.env.EMAIL_ADDRESS;
+  if (request.method !== "POST") {
+    return new Response(JSON.stringify({ message: "Method not allowed." }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (!isNotRateLimited) {
+    return new Response(
+      JSON.stringify({ message: "Too many requests. Please try again later." }),
+      { status: 429, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  try {
+    const data = (await request.json()) as IssueBody;
+    const apiKey = process.env.RESEND_API_KEY;
+    const resend = new Resend(apiKey);
+    const email = process.env.EMAIL_ADDRESS;
+    if (apiKey && email) {
       await resend.emails.send({
         from: "Acme <onboarding@resend.dev>",
         to: email,
@@ -31,23 +46,27 @@ export const POST: APIRoute = async ({ request }): Promise<Response> => {
           },
         },
       );
-    } catch (error) {
+    } else {
       return new Response(
-        JSON.stringify({ message: `Issue submitting error report: ${error}` }),
+        JSON.stringify({
+          message:
+            "Server configuration error: missing API key or email address.",
+        }),
         {
           status: 500,
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         },
       );
     }
-  } else {
-    return new Response(JSON.stringify({ message: "Internal Server Error" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ message: `Issue submitting error report: ${error}` }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
   }
 };

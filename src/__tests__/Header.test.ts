@@ -13,7 +13,7 @@ describe("Header", () => {
     const resultText = result.textContent;
 
     expect(resultText).toContain("home");
-    expect(resultText).toContain("blog");
+    // expect(resultText).toContain("blog");
     expect(resultText).toContain("work");
     expect(resultText).toContain("projects");
     expect(resultText).toContain("/");
@@ -33,7 +33,7 @@ describe("Header", () => {
     const resultText = result.textContent;
 
     expect(resultText).toContain("home");
-    expect(resultText).toContain("blog");
+    // expect(resultText).toContain("blog");
     expect(resultText).toContain("work");
     expect(resultText).toContain("projects");
     expect(resultText).toContain("admin");

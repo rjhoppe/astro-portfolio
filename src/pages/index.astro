@@ -42,6 +42,8 @@ const work: WorkWithContent[] = await Promise.all(
     return { ...item, Content };
   }),
 );
+
+const hideBlog = true;
 ---
 
 <PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
@@ -66,36 +68,30 @@ const work: WorkWithContent[] = await Promise.all(
           </p>
           <p class="animate">
             When I am not writing code for work, I enjoy programming in my spare
-            time to solve
-            <i>real</i> problems, like "Oh God, I am already at the grocery store,
-            what do I want to eat for dinner this week?"
-          </p>
-          <p class="animate">
-            I enjoy writing as well and use the blog featured here as a writing
-            exercise to house my collection of rants and ravings.
-          </p>
-          <p class="animate">
-            Read at your own risk and remember: It's not for you 😉
+            time to solve <i>real</i> or imagined problems. Most of what I have written
+            is now running on my Proxmox mini-PC or in my VPS.
           </p>
         </article>
       </section>
-
-      <section class="animate space-y-6">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-black dark:text-white">Latest posts</h5>
-          <Link href="/blog"> See all posts </Link>
-        </div>
-        <ul class="flex flex-col gap-4">
-          {
-            blog.map((post: Blog) => (
-              <li>
-                <ArrowCard entry={post} />
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
+      {
+        hideBlog ? null : (
+          <section class="animate space-y-6">
+            <div class="flex flex-wrap gap-y-2 items-center justify-between">
+              <h5 class="font-semibold text-black dark:text-white">
+                Latest posts
+              </h5>
+              <Link href="/blog"> See all posts </Link>
+            </div>
+            <ul class="flex flex-col gap-4">
+              {blog.map((post: Blog) => (
+                <li>
+                  <ArrowCard entry={post} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
           <h5 class="font-semibold text-black dark:text-white">

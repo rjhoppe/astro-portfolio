@@ -5,8 +5,10 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { sql } from "drizzle-orm";
 
-const isProduction = process.env.NODE_ENV === "production";
-const dbPath = isProduction ? "/data/db.sqlite3" : "./db.sqlite3";
+const isDockerized =
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "development";
+const dbPath = isDockerized ? "/data/db.sqlite3" : "./db.sqlite3";
 
 const sqlite = new Database(dbPath);
 
