@@ -13,6 +13,8 @@ type Props = {
 const path = Astro.url.pathname;
 const isGiftsPage = path === "/gifts";
 const { title, description } = Astro.props;
+
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -26,5 +28,15 @@ const { title, description } = Astro.props;
       <slot />
     </main>
     {isGiftsPage ? <GiftsFooter /> : <Footer />}
+
+    {
+      isProd && (
+        <script
+          defer
+          src="https://analytics.rjhoppe.dev/script.js"
+          data-website-id="823d9689-22dc-4540-85cc-d6f852c9a16f"
+        ></script>
+      )
+    }
   </body>
 </html>
