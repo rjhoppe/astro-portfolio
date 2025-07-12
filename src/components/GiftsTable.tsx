@@ -142,7 +142,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="ml-8">Loading...</div>;
   }
 
   return (
@@ -150,7 +150,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
       <div className="flex items-center justify-end gap-3 mb-4">
         <label
           htmlFor="assignee-filter"
-          className="text-sm font-medium text-stone-700 dark:text-stone-300"
+          className="text-lg font-medium text-stone-700 dark:text-stone-300"
         >
           Filter by Assignee:
         </label>
@@ -158,7 +158,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
           id="assignee-filter"
           name="assignee-filter"
           onChange={(e) => handleFilterChange(e)}
-          className="border border-black/15 dark:border-stone-600 rounded-md dark:bg-stone-700 py-1 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          className="border border-black/15 dark:border-stone-600 rounded-md dark:bg-stone-700 py-1 px-3 text-lg transition"
         >
           <option value="">All</option>
           {assignees.map((val) => (
@@ -168,11 +168,11 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
           ))}
         </select>
       </div>
-      <table className="table">
+      <table className="table table-lg">
         <thead>
           <tr>
             {cols.map((col) => (
-              <th key={col} className="text-lg dark:text-white">
+              <th key={col} className="text-lg">
                 {col}
               </th>
             ))}
@@ -182,9 +182,9 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
           {filterQuery.length > 0
             ? filteredGifts.map((gift) => (
                 <tr key={gift.id}>
-                  <td>{gift.id}</td>
-                  <td>{gift.name}</td>
-                  <td>
+                  <td className="px-4 py-2">{gift.id}</td>
+                  <td className="px-4 py-2">{gift.name}</td>
+                  <td className="px-4 py-2">
                     <select
                       id={gift.id.toString()}
                       className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
