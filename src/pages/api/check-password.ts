@@ -6,8 +6,8 @@ export const GET: APIRoute = async ({ request }) => {
   const pageSecret =
     typeof process !== "undefined" && process.env?.PUBLIC_GIFTS_PASSWORD
       ? process.env.PUBLIC_GIFTS_PASSWORD
-      : "your-pw-here-for-local";
-  // import.meta.env?.PUBLIC_GIFTS_PASSWORD;
+      : // "your-pw-here-for-local";
+        import.meta.env?.PUBLIC_GIFTS_PASSWORD;
 
   if (password !== pageSecret) {
     return new Response(JSON.stringify({ authorized: false }), {
