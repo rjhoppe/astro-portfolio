@@ -5,13 +5,9 @@ import { sql } from "drizzle-orm";
 
 console.log("Starting database migration...");
 
-const isDockerized =
-  process.env.NODE_ENV === "production" ||
-  process.env.NODE_ENV === "development";
-const dbPath = isDockerized ? "/data/db.sqlite3" : "./db.sqlite3";
+const dbPath = process.env.DB_PATH || "./db.sqlite3";
 
 console.log(`Database path: ${dbPath}`);
-console.log(`Environment: ${process.env.NODE_ENV}`);
 
 try {
   console.log("Runtime attempting to open database at:", dbPath);
