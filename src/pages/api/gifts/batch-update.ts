@@ -1,23 +1,16 @@
 import { db } from "@lib/server/db";
 import { rateLimit } from "@lib/server/ratelimit";
 import { giftsTable } from "@models/schema";
+import type { Gift } from "@models/type";
 import type { APIRoute } from "astro";
 import { eq } from "drizzle-orm";
-
-interface GiftUpdate {
-  id: number;
-  updates: {
-    bought?: string;
-    assignee?: string;
-  };
-}
 
 export const PUT: APIRoute = async ({ request }): Promise<Response> => {
   const isNotRateLimited = rateLimit(request);
   if (request.method === "PUT" && isNotRateLimited)
     try {
       // Parse the incoming JSON body
-      const updates: GiftUpdate[] = await request.json();
+      const updates: Gift[] = await request.json();
 
       // Validate input
       if (!Array.isArray(updates) || updates.length === 0) {
@@ -32,24 +25,18 @@ export const PUT: APIRoute = async ({ request }): Promise<Response> => {
         );
       }
 
-      // Perform batch update in a transaction
-      await db.transaction(async (tx) => {
-        // Process each update
-        const updatePromises = updates.map(async (update) => {
-          // Validate each update has an id and some updates
-          if (!update.id || Object.keys(update.updates).length === 0) {
-            throw new Error(`Invalid update for id: ${update.id}`);
+      await db.transaction((tx) => {
+        for (const update of updates) {
+          const { id, ...updatesToApply } = update;
+          if (!id || Object.keys(updatesToApply).length === 0) {
+            throw new Error(`Invalid update for id: ${id}`);
           }
 
-          // Perform individual update
-          return tx
-            .update(giftsTable)
-            .set(update.updates)
-            .where(eq(giftsTable.id, update.id));
-        });
-
-        // Wait for all updates to complete
-        await Promise.all(updatePromises);
+          tx.update(giftsTable)
+            .set(updatesToApply)
+            .where(eq(giftsTable.id, id))
+            .run();
+        }
       });
 
       // Return successful response

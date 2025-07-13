@@ -4,15 +4,10 @@ import InfoAccordion from "./InfoAccordion";
 
 interface GiftTableProps extends GiftProps {}
 
-interface GiftUpdate<T> {
-  id: number;
-  updates: Partial<T>;
-}
-
 const GiftsTable = ({ admin }: GiftTableProps) => {
   const [gifts, setGifts] = useState<Gift[]>([]);
   const [loading, setLoading] = useState(true);
-  const [updatedGifts, setUpdatedGifts] = useState<GiftUpdate<Gift>[]>([]);
+  const [updatedGifts, setUpdatedGifts] = useState<{ [id: number]: Gift }>({});
   const [filterQuery, setFilterQuery] = useState<string>("");
   const cols = ["Id", "Name", "Bought", "Assignee", "URL", "Notes"];
   const assignees = [
@@ -53,76 +48,45 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   );
 
   const updateGift = (id: number, field: keyof Gift, value: string) => {
-    // Find the original user
-    const originalUser = gifts.find((gift) => gift.id === id);
-    if (!originalUser) return;
-
-    // Check if the new value is the same as the original
-    const isOriginalValue = originalUser[field] === value;
-
-    setUpdatedGifts((prev) => {
-      const existingChangeIndex = prev.findIndex((change) => change.id === id);
-
-      if (existingChangeIndex > -1) {
-        // If the new value is the original value, remove this specific field from changes
-        const currentChange = prev[existingChangeIndex];
-        const updatedFieldChanges = { ...currentChange.updates };
-        delete updatedFieldChanges[field];
-
-        // If no more changes for this user, remove the entire change entry
-        if (Object.keys(updatedFieldChanges).length === 0) {
-          return prev.filter((_, index) => index !== existingChangeIndex);
-        }
-
-        // Update the changes, removing the reverted field
-        const updatedChanges = [...prev];
-        updatedChanges[existingChangeIndex] = {
-          ...currentChange,
-          updates: updatedFieldChanges,
-        };
-        return updatedChanges;
-      }
-
-      // If not the original value, add new change
-      if (!isOriginalValue) {
-        return [
-          ...prev,
-          {
-            id,
-            updates: { [field]: value },
-          },
-        ];
-      }
-
-      // If it's the original value and no change exists, do nothing
-      return prev;
-    });
-
-    // Optimistically update local state
     setGifts((prev) =>
-      prev.map((gift) => (gift.id === id ? { ...gift, [field]: value } : gift)),
+      prev.map((gift) => {
+        if (gift.id === id) {
+          const updatedGift = { ...gift, [field]: value };
+
+          // Always update bought to "Yes" when any field changes, if needed
+          if (field !== "bought") {
+            updatedGift.bought = "Yes";
+          }
+
+          // Save the full updated gift in updatedGifts hashmap
+          setUpdatedGifts((prevUpdates) => ({
+            ...prevUpdates,
+            [id]: updatedGift,
+          }));
+
+          return updatedGift;
+        }
+        return gift;
+      }),
     );
   };
 
-  // Submit changes to API
   const handleSubmit = async () => {
-    if (updatedGifts.length === 0) return;
+    const updatesArray = Object.values(updatedGifts);
+    if (updatesArray.length === 0) return;
 
     try {
       const response = await fetch("/api/gifts/batch-update", {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedGifts),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatesArray),
       });
 
       if (!response.ok) {
         throw new Error("Update failed");
       }
 
-      // Clear pending changes after successful update
-      setUpdatedGifts([]);
+      setUpdatedGifts({});
     } catch (error) {
       console.error("Update failed", error);
     }
@@ -142,7 +106,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   }, []);
 
   if (loading) {
-    return <div className="ml-8">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -184,19 +148,21 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                 <tr key={gift.id}>
                   <td className="px-4 py-2">{gift.id}</td>
                   <td className="px-4 py-2">{gift.name}</td>
-                  <td className="px-4 py-2">
-                    <select
-                      id={gift.id.toString()}
-                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
-                      defaultValue={gift.bought}
+                  <td className="px-4 py-2 text-center">
+                    <input
+                      type="checkbox"
+                      id={`bought-${gift.id}`}
                       name="bought"
+                      checked={gift.bought === "Yes"}
                       onChange={(e) =>
-                        updateGift(gift.id, "bought", e.target.value)
+                        updateGift(
+                          gift.id,
+                          "bought",
+                          e.target.checked ? "Yes" : "No",
+                        )
                       }
-                    >
-                      <option value="No">No</option>
-                      <option value="Yes">Yes</option>
-                    </select>
+                      className="w-5 h-5 accent-stone-700"
+                    />
                   </td>
                   <td>
                     <select
@@ -239,19 +205,21 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                 <tr key={gift.id}>
                   <td>{gift.id}</td>
                   <td>{gift.name}</td>
-                  <td>
-                    <select
-                      id={gift.id.toString()}
-                      className="border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-1 px-2"
-                      defaultValue={gift.bought}
+                  <td className="px-4 py-2 text-center">
+                    <input
+                      type="checkbox"
+                      id={`bought-${gift.id}`}
                       name="bought"
+                      checked={gift.bought === "Yes"}
                       onChange={(e) =>
-                        updateGift(gift.id, "bought", e.target.value)
+                        updateGift(
+                          gift.id,
+                          "bought",
+                          e.target.checked ? "Yes" : "No",
+                        )
                       }
-                    >
-                      <option value="No">No</option>
-                      <option value="Yes">Yes</option>
-                    </select>
+                      className="w-5 h-5 accent-stone-700"
+                    />
                   </td>
                   <td>
                     <select
@@ -295,14 +263,16 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
               ))}
         </tbody>
       </table>
-      {updatedGifts.length > 0 && (
+      {Object.keys(updatedGifts).length > 0 && (
         <div className="flex justify-end">
           <button
             id="submit-btn"
             className="mt-8 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
             onClick={handleSubmit}
           >
-            Save {updatedGifts.length} Changes
+            {Object.keys(updatedGifts).length === 1
+              ? `Update ${Object.keys(updatedGifts).length} Record`
+              : `Update ${Object.keys(updatedGifts).length} Records`}
           </button>
         </div>
       )}
