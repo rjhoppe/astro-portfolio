@@ -5,7 +5,10 @@ import { sql } from "drizzle-orm";
 
 console.log("Starting database migration...");
 
-const dbPath = process.env.DB_PATH || "./db.sqlite3";
+const dbPath = process.env.DB_PATH;
+if (!dbPath) {
+  throw new Error("DB_PATH environment variable is missing!");
+}
 
 console.log(`Database path: ${dbPath}`);
 
