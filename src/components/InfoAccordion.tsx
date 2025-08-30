@@ -32,6 +32,39 @@ const InfoAccordion = () => {
     <div className="mt-10">
       <div className="collapse collapse-arrow bg-base-200 border border-black/15 dark:border-stone-600 rounded-lg mb-4">
         <input type="radio" name="my-accordion-2" />
+        <div className="collapse-title text-lg font-semibold">
+          How to Use This Gifts Table
+        </div>
+        <div className="collapse-content space-y-3">
+          <p>This table shows all current gift records. You can:</p>
+          <ul className="list-disc list-inside space-y-1">
+            <li>
+              <span className="font-medium">View gifts</span> with their name,
+              bought status, link, assignee, and notes.
+            </li>
+            <li>
+              <span className="font-medium">Filter by assignee</span> using the
+              dropdown menu above the table to only see gifts assigned to a
+              specific person.
+            </li>
+            <li>
+              <span className="font-medium">Mark as bought</span> by clicking a
+              record's "Bought?" checkbox field.
+            </li>
+            <li>
+              <span className="font-medium">Don’t forget to save</span> your
+              changes by clicking the "Update Record" button after editing a
+              gift.
+            </li>
+          </ul>
+          <p>
+            All changes are saved to the database in real time when you submit
+            your entries.
+          </p>
+        </div>
+      </div>
+      <div className="collapse collapse-arrow bg-base-200 border border-black/15 dark:border-stone-600 rounded-lg mb-4">
+        <input type="radio" name="my-accordion-2" />
         <div className="collapse-title text-lg font-semibold">Sizing Info</div>
         <div className="collapse-content">
           <dl className="divide-y divide-black/15 dark:divide-stone-600">
