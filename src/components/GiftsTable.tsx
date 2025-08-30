@@ -6,6 +6,7 @@ interface GiftTableProps extends GiftProps {}
 
 const GiftsTable = ({ admin }: GiftTableProps) => {
   const [gifts, setGifts] = useState<Gift[]>([]);
+  const [originalGifts, setOriginalGifts] = useState<Gift[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatedGifts, setUpdatedGifts] = useState<{ [id: number]: Gift }>({});
   const [filterQuery, setFilterQuery] = useState<string>("");
@@ -53,17 +54,23 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         if (gift.id === id) {
           const updatedGift = { ...gift, [field]: value };
 
-          // Always update bought to "Yes" when any field changes, if needed
-          if (field !== "bought") {
-            updatedGift.bought = "Yes";
-          }
-
           // Save the full updated gift in updatedGifts hashmap
-          setUpdatedGifts((prevUpdates) => ({
-            ...prevUpdates,
-            [id]: updatedGift,
-          }));
+          setUpdatedGifts((prevUpdates) => {
+            const origGift = originalGifts.find((g) => g.id === id);
+            if (!origGift) return prevUpdates;
 
+            const isDifferent =
+              JSON.stringify(origGift) !== JSON.stringify(updatedGift);
+
+            if (isDifferent) {
+              return { ...prevUpdates, [id]: updatedGift };
+            } else {
+              // remove if user reverted change
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              const { [id]: _, ...rest } = prevUpdates;
+              return rest;
+            }
+          });
           return updatedGift;
         }
         return gift;
@@ -97,6 +104,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
       .then((response) => response.json())
       .then((data) => {
         setGifts(data.body); // Set the fetched data to state
+        setOriginalGifts(data.body);
         setLoading(false); // Set loading to false after data is fetched
       })
       .catch((error) => {
@@ -202,7 +210,14 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                 </tr>
               ))
             : gifts.map((gift) => (
-                <tr key={gift.id}>
+                <tr
+                  key={gift.id}
+                  className={
+                    updatedGifts[gift.id]
+                      ? "dark:bg-stone-600 bg-stone-200"
+                      : ""
+                  }
+                >
                   <td>{gift.id}</td>
                   <td>{gift.name}</td>
                   <td className="px-4 py-2 text-center">
