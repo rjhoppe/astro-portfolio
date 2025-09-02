@@ -3,6 +3,14 @@ title: "My Sleep Apnea Journey"
 description: "An overview of my sleep apnea journey and timeline"
 date: "3/14/2025"
 ---
+# Table of Contents
+- [Update This](#intro)
+- [Data](#data)
+- [Comfort](#comfort)
+- [Leaks](#leaks)
+- [Analyze](#analyze)
+- [Legal](#legal)
+
 ### Preface
 
 This is going to be a long article. 

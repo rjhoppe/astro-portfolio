@@ -8,7 +8,8 @@ date: "9/1/2025"
 - [Data](#data)
 - [Comfort](#comfort)
 - [Leaks](#leaks)
-- [Analyze](#analyze)
+- [Position](#position)
+- [Optimize](#optimize)
 - [Legal](#legal)
 
 ### Intro
@@ -51,17 +52,45 @@ You can safely increase your minimum pressure between 7-9 and decrease your max 
 **ANOTHER NOTE: You will need to activate clinical mode on your machine to adjust some of these settings. Depending on the doctor, they might not appreciate you adjusting your machine on your own. But it is YOUR THERAPY and YOUR HEALTH, never forget that.**
 
 #### EPR / Pressure Support
+In ResMed CPAP machines, "EPR" aka "Expiratory Pressure Relief" is a comfort setting that the machine's pressure delivery during your exhale, making it easier for you to exhale. There's more to be said about this setting in a longer, dedicated article, but for now know that it is a great tool to make your therapy more comfortable. EPR is disabled by default, but can be set from 0 to 3. Setting EPR to 3 made my own therapy substantially more tolerable and I found that I needed it even after I acclimated to my CPAP. Try it out and see which level feels the best for you.
 
 #### ClimateLine
-If your CPAP machine has a ClimateLine tube option, get the ClimateLine. Using that in combination with your water-filled reservoir will make for a much more comfortable experience. You may need to tweak the humidity settings over time if you experience rainout (condensation in your mask).
+If your CPAP machine has a ClimateLine tube option, get the ClimateLine. Using that in combination with your water-filled reservoir will make for a much more comfortable experience. You may need to tweak the humidity settings over time if you experience rainout (condensation in your mask). 
+
+It is worth mentioning that the ClimateLine is marginally more expensive than the base tube offering.
 
 ### Leaks
+After getting comfortable with your therapy, it's now time to tackle any mask leaks that may be getting in between you and a good night's sleep. 
 
+Your machine typically has a summary page somewhere on it that will tell you how much your mask leaked in a given night. These summary pages can vary from decent to downright useless. For example the ResMed Aircurve 10 uses a smiley face system, which is worthless, but the ResMed Airsense 11 provides an average leak number.
 
-### Analyze
+You may never get to 0.0 leak average (and that's okay), but you should strive to at least eliminate large leaks and optimize to your best ability from there. Large leaks will typically wake you up or greatly disturb your therapy.
 
+The primary cause of mask leaks are:
+* Poor mask fit
+* Mask type incompatibility
+
+For the mask fit issues, again YMMV, but I have found that I really need to pull my straps tight on my ResMed AirFit F20 full face mask or I leak all night. It just takes some trial and error to figure out how you can get a good seal using the mask of your choice.
+
+However, you may find that no matter what you do, you can't get your leaks under control. This suggests that your choice of mask is either incompatible with your breathing (mouthbreathing most likely) or the mask is not compatible with your sleep habits. 
+
+As an active sleeper and a mask breather I really had a tough time getting my leaks under control. The AirFit P10 nasal pillows were so comfortable and I wanted them to work for me so badly. But, no matter what I did, I couldn't keep my mouth closed while using it (even when using a chinstrap!). I eventually had to throw in the towel. I switched to the full face mask and never looked back. And honestly, once I got used to it, it's a pretty great mask. I just wish it wasn't such a pain to scratch my nose in the middle of the night. 
+
+### Position
+You might hate to hear this, but while using a CPAP machine, you really should try to sleep on your side. 
+
+I fought this simple truth for a long time, much to my own detriment. I did not think I was capable of sleeping on my side due to shoulder pain. But, with perserverance and enough pillows I have managed to make it work. And what a world of difference it has made. It took my average AHI (number of apnea events per hour) of somewhere between 1.0 and 2.5 reliably below 1.0 on most nights. That might not seem substantial, but it was instrumental in reducing the number of disturbances I had in a given night.
+
+This might not be something you want or need to do on Day 1, but keep it in the back of your mind as you continue throughout your own therapy journey.
 
 ### Optimize
+Remember that SD card I mentioned earlier? Now it's time to let your data do the talkin'.
+
+Pop out your SD card and upload it to your computer. Many modern laptops and computers do not have SD card readers anymore, so you will probably need an external SD card reader or some type of adapter that will allow you to connect it to your computer. I bought one on Amazon for $10 that allows me to upload it to my laptop.
+
+Now you have a couple of options with regards to software you can use to visualize your CPAP data, but the most popular is OSCAR, which is an open source solution developed by the CPAP community. 
+
+Once you have downloaded the software for your operating system, you will need to create a local account. After you have created an account, select your account to use it, at which point you will be prompted to upload your CPAP data. The software is smart enough where it should be able to self-discover the location your CPAP data on your adapter or SD card reader. 
 
 
 ### Legal
