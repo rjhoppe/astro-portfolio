@@ -100,21 +100,31 @@ I did some research and eventually landed on Lofta's Home Sleep Test. It's impor
 * Accurate enough for a binary sleep apnea verdict
 * If done through Lofta, they can immediately grant you a CPAP prescription if test positive for sleep apnea
 
-An at home sleep study will, in most cases, be REMARKABLY cheaper than an overnight in-lab sleep study. Health insurance coverage for sleep apnea related treatment is typically awful. I have been on two separate providers and have largely paid all costs out of pocket. Even if you are lucky to have insurance that will foot the bill of your treatment, it is important to be aware of the typical "gotchas" associated with sleep apnea coverage.
+**NOTE: It is worth mentioning that I am NOT sponsored by Lofta**
+
+An at home sleep study will, in most cases, be REMARKABLY cheaper than an overnight in-lab sleep study. Health insurance coverage for sleep apnea related treatment is typically awful. I have been on two separate providers and have largely paid all costs out of pocket. Even if you are lucky to have insurance that will foot the bill of your treatment, it is important to be aware of the "gotchas" associated with sleep apnea coverage.
 
 #### Scheduling
-You *likely* will need to schedule your in-lab sleep study, months in advance. Many of these labs can only host a handful of patients on any given night. For example, my in-lab sleep study group was 6 people and I am not sure that they had patients come in every night. YMMV, but I have to wait 3 months for my in-lab sleep study appointment, but I heard people waiting 6-8 months for an appointment. 
+You *likely* will need to schedule your in-lab sleep study, months in advance. Many of these labs can only host a handful of patients on any given night. For example, my in-lab sleep study group was 6 people and I do not believe they had a new batch of sleep study patients come in every night. YMMV, but I have to wait 3 months for my in-lab sleep study appointment, but I heard people waiting 6-8 months for an appointment.
 
 And at the end of the day, a sleep study is the STARTING POINT for sleep apnea treatment. Meaning, you have to wait around for several months to get to the starting line for treatment, meanwhile potentially suffering a serious condition. This may not be an acceptable tradeoff. 
 
 #### Compliance
-
-
+Before letting you keep your machine, many insurance companies will make you rent out a CPAP machine for a trial period. This is so they do not have to give away CPAP machines to people that they do not believe will commit to CPAP therapy. During the trial period, they will charge you a flat rental fee and observe your nightly usage. If you fall below the compliance threshold they will not let you keep the CPAP machine. This can be stressful to someone who is having trouble adjusting to see CPAP therapy. It can take several weeks or months for a new user to feel comfortable wearing their mask for an entire night. 
 
 #### DMEs
+A DME (Durable Medical Equipment) is the organization that your insurance will send you too for all your CPAP equipment. Masks, tubes, reservoirs, CPAP machines, etc. all come from this medical equipment provider. And they are truly criminals. They exploit the insurance system in the US to charge OUTRAGEOUS prices for the equipment they provide you. Much of the cost should be absorbed by your insurance company, but not all of it. When Ben Kenobi told Luke he would "never find a more wretched hive of scum and villainy" he was looking directly at the Mos Eisley DME.
 
-The way sleep apnea is currently treated in the United States is awful
+A "good" DME might properly fit you for a mask (one of the only advantages to going to one of these in person is that you will have the opportunity to briefly try on many different styles of masks), but again YMMV. You are much more likely to feel nickel and dime'd at one of these then be provided a valuable service. 
 
-The at home sleep study took 3 days to arrive and it 
+It is also worth mentioning that the timelines your DME and CPAP suppliers will suggest for your replacing your equipment are also ridiculous. You do not need to replace your equipment as often as they suggest. They exist FOR PROFIT and it behooves them that you replace your equipment often.
 
+### At-Home Sleep Study Results
+Back to my story. The at home sleep study took 3 days to arrive from Lofta and I followed their instructions for conducting an at-home test. It was pretty straight forward. The results came in within 48 hours.
+
+I tested positive for mild to moderate obstructive sleep apnea based on pAHI=5.0, pRDI=18.6 and O2 nadir of 90%.
+
+AHI is an important metric for evaluating the severity of sleep apnea. It stands for Apnea-Hypopnea Index (AHI) is used to represent the number of apneic events per hour where breathing repeatedly stops and starts during sleep. That means in this particular sleep study I averaged a whooping 5 apneic events per hour! No wonder I wasn't sleeping well. The crazy thing is 5 AHI is relatively tame when it comes to range of sleep apnea severity experiences. There are poor souls that exceed 100 events per hour!
+
+Another number from that study worth mentioning is the O2 nadir of 90%. Your O2 level should ideally be between 95-100% while sleeping. Sustained periods below 95% are very bad for your long term health (particularly your heart health).
 
