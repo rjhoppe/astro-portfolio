@@ -2,8 +2,9 @@
 title: "Please, Stop Being Scrappy"
 description: "I asked nicely..."
 date: "9/1/2025"
+draft: true
 ---
-In a world of overused, recycled, and vaguely (or overtly) Amazon adjacent "corporate values" nothing should inspire a more visceral reaction than "scrappy" Yes, it is worse than "transparent" which spawned an epidemic of business cultural where transparency is encouraged, but never practiced. And has arguably resulted in a LESS transparent professional cultural landscape.
+In a world of overused, recycled, and vaguely (or overtly) Amazon adjacent "corporate values" nothing should inspire a more visceral reaction than "scrappy" Yes, it is worse than "transparent" which spawned an epidemic of business culture where transparency is encouraged, but never practiced. And has arguably resulted in a LESS transparent professional cultural landscape.
 
 It is even worse than "candor" which so often devolves into a
 

@@ -1,6 +1,6 @@
 ---
-title: "5 Things to Focus On As You Start CPAP Therapy"
-description: ""
+title: "5 Tips for Starting CPAP Therapy"
+description: "A comprehensive guide to starting CPAP therapy"
 date: "9/1/2025"
 ---
 # Table of Contents

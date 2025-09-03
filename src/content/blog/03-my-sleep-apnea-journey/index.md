@@ -2,6 +2,7 @@
 title: "My Sleep Apnea Journey"
 description: "An overview of my sleep apnea journey and timeline"
 date: "3/14/2025"
+draft: true
 ---
 # Table of Contents
 - [Update This](#intro)
@@ -128,11 +129,32 @@ A "good" DME might properly fit you for a mask (one of the only advantages to go
 It is also worth mentioning that the timelines your DME and CPAP suppliers will suggest for your replacing your equipment are also ridiculous. You do not need to replace your equipment as often as they suggest. They exist FOR PROFIT and it behooves them that you replace your equipment often.
 
 ### At-Home Sleep Study Results
-Back to my story. The at home sleep study took 3 days to arrive from Lofta and I followed their instructions for conducting an at-home test. It was pretty straight forward. The results came in within 48 hours.
+Back to my story... 
+
+The at home sleep study took 3 days to arrive from Lofta and I followed their instructions for conducting an at-home test. It was pretty straight forward. The results came in within 48 hours.
 
 I tested positive for mild to moderate obstructive sleep apnea based on pAHI=5.0, pRDI=18.6 and O2 nadir of 90%.
 
 AHI is an important metric for evaluating the severity of sleep apnea. It stands for Apnea-Hypopnea Index (AHI) is used to represent the number of apneic events per hour where breathing repeatedly stops and starts during sleep. That means in this particular sleep study I averaged a whooping 5 apneic events per hour! No wonder I wasn't sleeping well. The crazy thing is 5 AHI is relatively tame when it comes to range of sleep apnea severity experiences. There are poor souls that exceed 100 events per hour!
 
-Another number from that study worth mentioning is the O2 nadir of 90%. Your O2 level should ideally be between 95-100% while sleeping. Sustained periods below 95% are very bad for your long term health (particularly your heart health).
+Another number from that study worth mentioning is the O2 nadir of 90%. Your O2 level should ideally be between 95-100% while sleeping. Sustained periods below 95% are very bad for your long term health (particularly your heart health). Therefore, that n
 
+
+
+
+
+
+### Legal
+The information provided in this article has been gathered through extensive research along with trial and error. Please do your own due diligence and only follow the advice you feel comfortable with. I am NOT a doctor. I'm just a guy on the Internet. But if you are reading this, I have been in your shoes. I became so disgusted with the way the medical community treats sleep disorders, I took charge of my own therapy. And I am healthier and happier for having done so.
+
+I don't recommend anything in this article that A) haven't tried or B) wouldn't do myself.
+
+Now here's the full legal disclosure:
+
+Disclaimer: The content provided in this article is for informational and educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. The author of this blog is not a licensed medical professional. Always seek the advice of your physician, sleep specialist, or other qualified health provider with any questions you may have regarding sleep apnea, other sleep-related conditions, or any medical matter.
+
+Never disregard professional medical advice or delay seeking it because of something you have read on this website. If you think you may be experiencing a medical emergency, call your doctor or dial emergency services immediately.
+
+Reliance on any information provided on this site is solely at your own risk. The author and this website make no representations or warranties about the accuracy, completeness, or applicability of the information contained herein and expressly disclaim any liability for any damages or consequences resulting from the use of this information.
+
+Links to external resources are provided for convenience only and do not constitute an endorsement.
