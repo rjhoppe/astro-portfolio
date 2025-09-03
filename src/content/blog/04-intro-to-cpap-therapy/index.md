@@ -90,8 +90,25 @@ Pop out your SD card and upload it to your computer. Many modern laptops and com
 
 Now you have a couple of options with regards to software you can use to visualize your CPAP data, but the most popular is OSCAR, which is an open source solution developed by the CPAP community. 
 
-Once you have downloaded the software for your operating system, you will need to create a local account. After you have created an account, select your account to use it, at which point you will be prompted to upload your CPAP data. The software is smart enough where it should be able to self-discover the location your CPAP data on your adapter or SD card reader. 
+Once you have downloaded the software for your operating system, you will need to create a local account. After you have created an account, select your account to use it, at which point you will see the option to upload your CPAP data. The software is smart enough where it should be able to self-discover the location your CPAP data on your adapter or SD card reader. 
 
+After loading your data into OSCAR, you will be taken to the overview page. There are a number of useful visualizations here, but the ones I would focus on the most are:
+
+* AHI
+* Leak Rate
+* Usage
+* Flow Limitations (you can think of these are micro arousals)
+* Total Time in Apnea
+
+You can also drill-down into the data for a specific night by clicking on the Daily tab at the top and using the calendar to navigate to a specific date.
+
+Reading charts and using your data to make improvements to your therapy is a HUGE topic and one that I plan on writing several articles about. This is just to get you started, so that when you are ready to optimize you already have all the pieces in place and some good starting data to analyze.
+
+It's also worth mentioning that it is easy to obsess about your data. Do not lose sight of what is most important: feeling rested. You don't always need your AHI to be below 1.0 to feel good and sometimes that metric is unachievable for some sleep apnea patients. The goal of optimization is to improve your therapy so that you feel good in your day to day life.
+
+Analyze your data when you think your therapy could be improved. Don't mess with a winning formula!
+
+And that is all you need to get started with your CPAP therapy! I had originally planned for this article to be much shorter, but I wanted to write something that was comprehensive, yet not overwhelming. If you are still reading, I hope you got something out of this and I wish you all the best on your CPAP therapy journey. 
 
 ### Legal
 The information provided in this article has been gathered through extensive research along with trial and error. Please do your own due diligence and only follow the advice you feel comfortable with. I am NOT a doctor. I'm just a guy on the Internet. But if you are reading this, I have been in your shoes. I became so disgusted with the way the medical community treats sleep disorders, I took charge of my own therapy. And I am healthier and happier for having done so.
