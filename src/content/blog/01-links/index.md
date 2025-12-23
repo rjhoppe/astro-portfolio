@@ -2,6 +2,7 @@
 title: "Links"
 description: "An organized collection of links I like"
 date: "11/24/2024"
+draft: true
 ---
 An archive of my favorite online resources for my own benefit/reference
 

@@ -10,14 +10,23 @@ draft: true
 - [Treatment](#treatment)
 - [Legal](#legal)
 
+### Intro
+If you find yourself in either a prolonged period of insomnia or degraded quality of sleep, it might be time to consider whether or not you have sleep apnea. 
+
+In March 2024, I very abruptly stopped being able to get restful sleep. At best, I would get one decent night of sleep a week, but had to rely heavily on OTC medication to achieve this result. I realized this was not a healthy solution and I needed to address the root cause. I am NOT a stereotypical sleep apnea patient. I am not overweight, a smoker, someone who snores, or over the age of 40, which I believe was detrimental to me getting a proper sleep apnea diagnosis from a medical practitioner. I talked to 2 doctors and 3 nurses over a three month span and only one of them raised the possibility that I could have sleep apnea. This is remarkable considering in each appointment I mentioned multiple common symptoms associated with sleep apnea.
+
+If this sounds like you, please review the signs of sleep apnea below and discuss with a medical professional the possibility that you may have sleep apnea. However, if you do not receive adequate support or guidance from a medical professional, please consider getting an at home sleep apnea test. 
 
 ### Signs
 
 #### Waking Up Gasping for Air
+If you find yourself consistently or (or even semi-regularly) waking up in the middle of the night gasping for air - it is very likely you have sleep apnea. This is one of the surest signs of sleep apnea, however, it may not manifest itself every night if you are a more mild case. For me personally, I only experienced this once in a while.
 
 #### Waking Up with a Racing Heart (or Heart Palpitations)
 
+
 #### Jolting (Twitching) Awake
+
 
 #### Waking Up with Headaches
 
