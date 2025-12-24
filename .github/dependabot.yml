@@ -1,26 +1,41 @@
-# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
 version: 2
 updates:
-  # Enable version updates for pnpm
-  - package-ecosystem: "pnpm"
+  # This covers npm, yarn, and pnpm based on your lockfile
+  - package-ecosystem: "npm" 
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    # Grouping related updates into single PRs to reduce noise
+    groups:
+      drizzle:
+        patterns:
+          - "drizzle-*"
+      astro-ecosystem:
+        patterns:
+          - "@astrojs/*"
+    ignore:
+      - dependency-name: "@astrojs/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react*"
+        update-types: ["version-update:semver-major"]
 
-  # Enable version updates for Docker
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
-
-  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
+    commit-message:
+      prefix: "ci"
+
+  # Keep this only if you have a Dockerfile in your root
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "docker"
