@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Gift, GiftProps } from "@models/type";
-import InfoAccordion from "./InfoAccordion";
+import { InfoAccordion } from "./InfoAccordion";
+import { Banner } from "./Banner";
 
 interface GiftTableProps extends GiftProps {}
 
@@ -140,6 +141,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
           ))}
         </select>
       </div>
+      <Banner isVisible={Object.keys(updatedGifts).length > 0} />
       <table className="table">
         <thead>
           <tr>
@@ -282,7 +284,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         <div className="flex justify-end">
           <button
             id="submit-btn"
-            className="mt-8 relative group flex flex-nowrap py-1 px-3 rounded-lg border border-black/15 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+            className="mt-8 relative group flex flex-nowrap py-1 px-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 md:p-6 rounded-lg shadow-lg"
             onClick={handleSubmit}
           >
             {Object.keys(updatedGifts).length === 1

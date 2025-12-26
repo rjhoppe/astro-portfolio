@@ -8,3 +8,7 @@ export type Session = InferSelectModel<typeof sessionsTable>;
 export interface GiftProps {
   admin: boolean;
 }
+
+export interface BannerProps {
+  isVisible: boolean;
+}
