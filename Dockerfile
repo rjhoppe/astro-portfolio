@@ -1,27 +1,30 @@
-# Stage 1: Install production dependencies
+# Stage 1: Install & Build production dependencies
 FROM node:lts-alpine AS prod-deps
 WORKDIR /app
-# Install system dependencies needed for better-sqlite3 at runtime
-RUN apk add --no-cache libc6-compat
-# Install pnpm with specific version
+
+# 1. Install build tools needed to compile native bindings (better-sqlite3)
+RUN apk add --no-cache python3 make g++ gcc musl-dev libc6-compat
+
 RUN npm install -g pnpm@9.5.0
-# Copy package files and install only production dependencies
+
 COPY package.json pnpm-lock.yaml* ./
-RUN pnpm install --prod --prefer-offline --ignore-scripts
+
+# 2. REMOVE --ignore-scripts so the native binary (.node file) is built
+RUN pnpm install --prod --frozen-lockfile
 
 # Stage 2: Build the application
 FROM node:lts-alpine AS builder
 WORKDIR /app
-# Install build-time system dependencies
-RUN apk add --no-cache python3 make g++ gcc musl-dev
-# Install pnpm with specific version
 RUN npm install -g pnpm@9.5.0
-# Copy all source files
+
+# Copy ALL files (including source and lockfile)
 COPY . .
-# Copy production node_modules and install dev dependencies
+
+# Copy the built production modules to save time, then install dev deps
 COPY --from=prod-deps /app/node_modules ./node_modules
-RUN pnpm install --prefer-offline --ignore-scripts
-# Build the application
+# We allow scripts here too just in case other build-time tools need them
+RUN pnpm install --frozen-lockfile
+
 RUN pnpm run build
 
 # Stage 3: Final production image
@@ -31,26 +34,22 @@ ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=4321
 
-# Create and use a non-root user for security
+# libc6-compat is often needed at runtime for native modules on Alpine
+RUN apk add --no-cache libc6-compat
+
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-# Copy production node_modules from the prod-deps stage
+# Copy production node_modules (which now contain the compiled .node bindings)
 COPY --from=prod-deps /app/node_modules ./node_modules
-# Copy built application from the builder stage
 COPY --from=builder /app/dist ./dist
-# Copy migrations from the builder stage
 COPY --from=builder /app/drizzle ./drizzle
-# Copy the migration script directly from source
 COPY --from=builder /app/migrate.mjs ./migrate.mjs
 
-# Create and set permissions for the data directory
 RUN mkdir /data && chown -R appuser:appgroup /data
 VOLUME /data
 ENV DB_PATH=/data/db.sqlite3
 
-# Switch to the non-root user
 USER appuser
-
 EXPOSE 4321
 
 CMD ["sh", "-c", "node migrate.mjs && node ./dist/server/entry.mjs"]
