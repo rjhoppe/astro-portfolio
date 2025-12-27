@@ -25,7 +25,7 @@ export const PUT: APIRoute = async ({ request }): Promise<Response> => {
         );
       }
 
-      await db.transaction((tx) => {
+      db.transaction((tx) => {
         for (const update of updates) {
           const { id, ...updatesToApply } = update;
           if (!id || Object.keys(updatesToApply).length === 0) {

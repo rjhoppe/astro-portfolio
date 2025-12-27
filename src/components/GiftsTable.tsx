@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Gift, GiftProps } from "@models/type";
 import { InfoAccordion } from "./InfoAccordion";
 import { Banner } from "./Banner";
+import { ASSIGNEES } from "@consts";
 
 interface GiftTableProps extends GiftProps {}
 
@@ -12,17 +13,6 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   const [updatedGifts, setUpdatedGifts] = useState<{ [id: number]: Gift }>({});
   const [filterQuery, setFilterQuery] = useState<string>("");
   const cols = ["Id", "Name", "Bought", "Assignee", "URL", "Notes"];
-  const assignees = [
-    "Unassigned",
-    "Justin",
-    "Kaylin",
-    "Liz",
-    "Lorraine",
-    "Rachel",
-    "Rick",
-    "Tyler",
-    "Other",
-  ];
 
   const deleteGiftHandler = async (giftId: number) => {
     // TODO: Refactor this to remove the unnecessary response body
@@ -134,7 +124,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
           className="border border-black/15 dark:border-stone-600 rounded-md dark:bg-stone-700 py-1 px-2 transition"
         >
           <option value="">All</option>
-          {assignees.map((val) => (
+          {ASSIGNEES.map((val) => (
             <option key={`filter-${val}`} value={val}>
               {val}
             </option>
@@ -183,7 +173,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                         updateGift(gift.id, "assignee", e.target.value)
                       }
                     >
-                      {assignees.map((val) => (
+                      {ASSIGNEES.map((val) => (
                         <option key={val} value={val}>
                           {val}
                         </option>
@@ -247,7 +237,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
                         updateGift(gift.id, "assignee", e.target.value)
                       }
                     >
-                      {assignees.map((val) => (
+                      {ASSIGNEES.map((val) => (
                         <option key={val} value={val}>
                           {val}
                         </option>
@@ -284,7 +274,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         <div className="flex justify-end">
           <button
             id="submit-btn"
-            className="mt-8 relative group flex flex-nowrap py-1 px-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 md:p-6 rounded-lg shadow-lg"
+            className="mt-8 relative inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
             onClick={handleSubmit}
           >
             {Object.keys(updatedGifts).length === 1

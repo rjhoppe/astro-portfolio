@@ -100,3 +100,15 @@ export const socialsData = [
     color: "bg-sky-700",
   },
 ];
+
+export const ASSIGNEES = [
+  "Unassigned",
+  "Justin",
+  "Kaylin",
+  "Liz",
+  "Lorraine",
+  "Rachel",
+  "Rick",
+  "Tyler",
+  "Other",
+];
