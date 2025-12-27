@@ -63,8 +63,8 @@ jobs:
           push: false
           load: true
           tags: astro-portfolio:test
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Test the built Docker image
         run: |
@@ -84,7 +84,3 @@ jobs:
           docker stop test-container || true
           docker rm test-container || true
 
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
