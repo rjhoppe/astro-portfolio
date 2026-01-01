@@ -1,17 +1,21 @@
 version: 2
 updates:
-  # This covers npm, yarn, and pnpm based on your lockfile
-  - package-ecosystem: "npm" 
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
       time: "09:00"
+      timezone: "America/Los_Angeles"
     open-pull-requests-limit: 10
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "dependencies"
+      - "npm"
     commit-message:
       prefix: "deps"
       include: "scope"
-    # Grouping related updates into single PRs to reduce noise
     groups:
       drizzle:
         patterns:
@@ -19,6 +23,19 @@ updates:
       astro-ecosystem:
         patterns:
           - "@astrojs/*"
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@types/react*"
+          - "@vitejs/plugin-react"
+      testing-ecosystem:
+        patterns:
+          - "@testing-library/*"
+          - "vitest"
+          - "jsdom"
+      sentry-ecosystem:
+        patterns:
+          - "@sentry/*"
     ignore:
       - dependency-name: "@astrojs/*"
         update-types: ["version-update:semver-major"]
@@ -29,13 +46,21 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "ci"
+      - "github-actions"
     commit-message:
       prefix: "ci"
 
-  # Keep this only if you have a Dockerfile in your root
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "docker"
     commit-message:
       prefix: "docker"
