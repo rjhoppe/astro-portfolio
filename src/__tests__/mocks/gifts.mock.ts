@@ -99,3 +99,11 @@ export const mockBackupData = {
   timestamp: "2025-01-19T08:30:00Z",
   status: "completed",
 };
+
+export const mockSubmitGift = {
+  name: "New Gift",
+  link: "http://example.com",
+  bought: "false",
+  assignee: "John Doe",
+  notes: "This is a test gift",
+};
