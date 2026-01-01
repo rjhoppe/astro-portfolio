@@ -10,6 +10,8 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   const [gifts, setGifts] = useState<Gift[]>([]);
   const [originalGifts, setOriginalGifts] = useState<Gift[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sessionStartTime, setSessionStartTime] = useState<number | null>(null);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [updatedGifts, setUpdatedGifts] = useState<{ [id: number]: Gift }>({});
   const [filterQuery, setFilterQuery] = useState<string>("");
   const cols = ["Id", "Name", "Bought", "Assignee", "URL", "Notes"];
@@ -22,7 +24,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         method: "DELETE",
         body: new URLSearchParams(parsedGiftId),
       });
-      alert(`Gift Id: ${giftId} successfully deleted.`);
+      setAlertMessage(`Gift Id: ${giftId} successfully deleted.`);
     } catch (error) {
       console.log("Error deleting gift");
     }
@@ -70,6 +72,15 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
   };
 
   const handleSubmit = async () => {
+    if (
+      sessionStartTime &&
+      Date.now() - sessionStartTime > 3 * 60 * 60 * 1000
+    ) {
+      setAlertMessage(
+        "session expired, you must refresh the page and reapply your changes.",
+      );
+      return;
+    }
     const updatesArray = Object.values(updatedGifts);
     if (updatesArray.length === 0) return;
 
@@ -97,6 +108,7 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
         setGifts(data.body); // Set the fetched data to state
         setOriginalGifts(data.body);
         setLoading(false); // Set loading to false after data is fetched
+        setSessionStartTime(Date.now());
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
@@ -110,6 +122,29 @@ const GiftsTable = ({ admin }: GiftTableProps) => {
 
   return (
     <div className="overflow-x-auto px-12 -mt-8">
+      {alertMessage && (
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold">Alert! </strong>
+          <span className="block sm:inline">{alertMessage}</span>
+          <span
+            className="absolute top-0 bottom-0 right-0 px-4 py-3"
+            onClick={() => setAlertMessage(null)}
+          >
+            <svg
+              className="fill-current h-6 w-6 text-red-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <title>Close</title>
+              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+            </svg>
+          </span>
+        </div>
+      )}
       <div className="flex items-center justify-end gap-3 mb-4">
         <label
           htmlFor="assignee-filter"

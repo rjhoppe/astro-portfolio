@@ -31,8 +31,7 @@ describe("Gifts", () => {
   test("Should render the Gifts component correctly when admin is true", async () => {
     const { container } = render(<Gifts admin={true} />);
     const giftsContainer = container.querySelector("#gifts-container");
-    // eslint-disable-next-line quotes
-    const giftsTable = container.querySelector('[data-testid="gifts-table"]');
+    const giftsTable = container.querySelector(`[data-testid="gifts-table"]`);
 
     expect(container).not.toBeNull();
     expect(giftsContainer).not.toBeNull();
@@ -42,8 +41,7 @@ describe("Gifts", () => {
   test("Should render the Gifts component correctly when admin is false", async () => {
     const { container } = render(<Gifts admin={false} />);
     const giftsContainer = container.querySelector("#gifts-container");
-    // eslint-disable-next-line quotes
-    const giftsTable = container.querySelector('[data-testid="gifts-table"]');
+    const giftsTable = container.querySelector(`[data-testid="gifts-table"]`);
 
     expect(container).not.toBeNull();
     expect(giftsContainer).not.toBeNull();
