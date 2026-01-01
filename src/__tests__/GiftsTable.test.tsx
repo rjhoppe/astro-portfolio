@@ -80,6 +80,7 @@ describe("GiftsTable", () => {
     ).toBeInTheDocument();
 
     // AND: The update API should not be called
+    // @ts-expect-error/silence-noisy-test-type-error
     const fetchCalls = (global.fetch as vi.Mock).mock.calls;
     const batchUpdateCall = fetchCalls.find(
       (call: any[]) => call[0] === "/api/gifts/batch-update",
