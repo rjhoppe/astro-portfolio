@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { rateLimit } from "@lib/server/ratelimit";
 
 type IssueBody = {
+  submitter: string;
   issue: string;
 };
 
@@ -32,7 +33,7 @@ export const POST: APIRoute = async ({ request }): Promise<Response> => {
         from: "Acme <onboarding@resend.dev>",
         to: email,
         subject: "Gifts Page Issue",
-        text: data.issue,
+        text: `Submitted by ${data.submitter}: ${data.issue}`,
       });
 
       return new Response(

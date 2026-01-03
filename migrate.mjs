@@ -18,7 +18,7 @@ try {
   const db = drizzle(sqlite);
 
   console.log("Running migrations...");
-  await migrate(db, { migrationsFolder: "./drizzle" });
+  migrate(db, { migrationsFolder: "./drizzle" });
 
   console.log("Enabling foreign keys...");
   db.run(sql`PRAGMA foreign_keys=ON;`);

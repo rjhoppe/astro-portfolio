@@ -1,26 +1,66 @@
-# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
 version: 2
 updates:
-  # Enable version updates for pnpm
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Los_Angeles"
+    open-pull-requests-limit: 10
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    groups:
+      drizzle:
+        patterns:
+          - "drizzle-*"
+      astro-ecosystem:
+        patterns:
+          - "@astrojs/*"
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@types/react*"
+          - "@vitejs/plugin-react"
+      testing-ecosystem:
+        patterns:
+          - "@testing-library/*"
+          - "vitest"
+          - "jsdom"
+      sentry-ecosystem:
+        patterns:
+          - "@sentry/*"
+    ignore:
+      - dependency-name: "@astrojs/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react*"
+        update-types: ["version-update:semver-major"]
 
-  # Enable version updates for Docker
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
-
-  # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-    reviewers:
-      - "${{ secrets.REVIEWER }}"
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "ci"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "rickjhoppe"
+    labels:
+      - "docker"
+    commit-message:
+      prefix: "docker"

@@ -1,12 +1,16 @@
 import { ExternalLinkIcon } from "./ExternalLinkIcon";
 
-const InfoAccordion = () => {
+export const InfoAccordion = () => {
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const inputValue = e.currentTarget.querySelector(
+      "#submitter-name",
+    ) as HTMLInputElement;
     const textarea = e.currentTarget.querySelector(
       "#issue",
     ) as HTMLTextAreaElement;
+    const submitter = formData.get("submitter-name");
     const issue = formData.get("issue");
     try {
       const response = await fetch("/api/gifts/report-error", {
@@ -14,10 +18,11 @@ const InfoAccordion = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ issue: issue }),
+        body: JSON.stringify({ submitter: submitter, issue: issue }),
       });
       // clear textarea value
       textarea.value = "";
+      inputValue.value = "";
       if (response.ok) {
         alert("Error report sent!");
       } else {
@@ -105,11 +110,6 @@ const InfoAccordion = () => {
                 link: "https://www.amazon.com/gp/product/B00CUDYY2U/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1",
               },
               {
-                name: "Casein Protein",
-                desc: "Dymatize Elite Casein Protein Chocolate (4 lb)",
-                link: "https://www.amazon.com/gp/product/B007L4QMGO/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1",
-              },
-              {
                 name: "Creatine",
                 desc: "CON-CRET Creatine HCl Capsules (90 ct)",
                 link: "https://www.amazon.com/gp/product/B0BKCVLYGX/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1",
@@ -182,6 +182,14 @@ const InfoAccordion = () => {
               >
                 Describe your issue
               </label>
+              <input
+                name="submitter-name"
+                id="submitter-name"
+                className="mt-2 w-full border border-black/15 dark:border-stone-600 rounded-lg dark:bg-stone-700 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                maxLength={75}
+                required
+                placeholder="Your name (so I can follow-up)"
+              ></input>
               <textarea
                 name="issue"
                 id="issue"
@@ -207,5 +215,3 @@ const InfoAccordion = () => {
     </div>
   );
 };
-
-export default InfoAccordion;
