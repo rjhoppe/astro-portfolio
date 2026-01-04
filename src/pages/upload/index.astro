@@ -203,105 +203,117 @@ const buttonPrimary = `${buttonBase} bg-stone-900 dark:bg-stone-100 text-white d
 
   <!-- Script Block -->
   <script>
-    const entriesContainer = document.getElementById("entries");
-    const addRowBtn = document.getElementById("add-row-btn");
-    const form = document.getElementById("form-block") as HTMLFormElement;
-    const template = document.getElementById(
-      "gift-row-template",
-    ) as HTMLTemplateElement;
+    document.addEventListener("astro:page-load", () => {
+      const entriesContainer = document.getElementById("entries");
+      const addRowBtn = document.getElementById("add-row-btn");
+      const form = document.getElementById("form-block") as HTMLFormElement;
+      const template = document.getElementById(
+        "gift-row-template",
+      ) as HTMLTemplateElement;
 
-    const addRow = () => {
-      if (!template || !entriesContainer) return;
-      // Clone the content of the template
-      const clone = template.content.cloneNode(true);
-      entriesContainer.appendChild(clone);
-    };
-
-    if (entriesContainer?.children.length === 0) {
-      addRow();
-    }
-
-    addRowBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
-      addRow();
-    });
-
-    entriesContainer?.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      // Check for our custom data-action attribute
-      if (target.dataset.action === "delete-row") {
-        const rows = document.querySelectorAll("[data-group='gift-entries']");
-        // Prevent deleting the very last row to keep the UI clean
-        if (rows.length > 1) {
-          target.closest("[data-group='gift-entries']")?.remove();
-        } else {
-          alert("You must have at least one entry.");
-        }
+      // Exit if the necessary elements aren't on this page.
+      // This makes the script safe to run on every page load.
+      if (!entriesContainer || !addRowBtn || !form || !template) {
+        return;
       }
-    });
 
-    form?.addEventListener("submit", async (event) => {
-      event.preventDefault();
+      const addRow = () => {
+        if (!template || !entriesContainer) return;
+        // Clone the content of the template
+        const clone = template.content.cloneNode(true);
+        entriesContainer.appendChild(clone);
+      };
 
-      const giftEntries = document.querySelectorAll(
-        "[data-group='gift-entries']",
-      );
-      const submitBtn = document.getElementById(
-        "submit-btn",
-      ) as HTMLButtonElement;
+      if (entriesContainer?.children.length === 0) {
+        addRow();
+      }
 
-      // Disable UI during submission
-      if (submitBtn) submitBtn.disabled = true;
+      addRowBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        addRow();
+      });
 
-      try {
-        // Map entries to an array of promises
-        const requests = Array.from(giftEntries).map(async (gift) => {
-          const payload = {
-            name: (gift.querySelector("input[name='name']") as HTMLInputElement)
-              .value,
-            link: (gift.querySelector("input[name='link']") as HTMLInputElement)
-              .value,
-            assignee: (
-              gift.querySelector("select[name='assignee']") as HTMLSelectElement
-            ).value,
-            bought: (
-              gift.querySelector("select[name='bought']") as HTMLSelectElement
-            ).value,
-            notes: (
-              gift.querySelector("input[name='notes']") as HTMLInputElement
-            ).value,
-          };
+      entriesContainer?.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        // Check for our custom data-action attribute
+        if (target.dataset.action === "delete-row") {
+          const rows = document.querySelectorAll("[data-group='gift-entries']");
+          // Prevent deleting the very last row to keep the UI clean
+          if (rows.length > 1) {
+            target.closest("[data-group='gift-entries']")?.remove();
+          } else {
+            alert("You must have at least one entry.");
+          }
+        }
+      });
 
-          const response = await fetch("/api/gifts/submit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const giftEntries = document.querySelectorAll(
+          "[data-group='gift-entries']",
+        );
+        const submitBtn = document.getElementById(
+          "submit-btn",
+        ) as HTMLButtonElement;
+
+        // Disable UI during submission
+        if (submitBtn) submitBtn.disabled = true;
+
+        try {
+          // Map entries to an array of promises
+          const requests = Array.from(giftEntries).map(async (gift) => {
+            const payload = {
+              name: (
+                gift.querySelector("input[name='name']") as HTMLInputElement
+              ).value,
+              link: (
+                gift.querySelector("input[name='link']") as HTMLInputElement
+              ).value,
+              assignee: (
+                gift.querySelector(
+                  "select[name='assignee']",
+                ) as HTMLSelectElement
+              ).value,
+              bought: (
+                gift.querySelector("select[name='bought']") as HTMLSelectElement
+              ).value,
+              notes: (
+                gift.querySelector("input[name='notes']") as HTMLInputElement
+              ).value,
+            };
+
+            const response = await fetch("/api/gifts/submit", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+              const err = await response.json();
+              throw new Error(err.message || "Failed to save an item.");
+            }
+            return response.json();
           });
 
-          if (!response.ok) {
-            const err = await response.json();
-            throw new Error(err.message || "Failed to save an item.");
+          // Execute all requests
+          await Promise.all(requests);
+
+          alert("All gifts successfully added to the database");
+
+          if (entriesContainer) {
+            entriesContainer.innerHTML = "";
+            addRow();
+            form.reset();
           }
-          return response.json();
-        });
-
-        // Execute all requests
-        await Promise.all(requests);
-
-        alert("All gifts successfully added to the database");
-
-        if (entriesContainer) {
-          entriesContainer.innerHTML = "";
-          addRow();
-          form.reset();
+        } catch (err) {
+          alert(
+            `Error: ${err instanceof Error ? err.message : "Submission failed"}`,
+          );
+        } finally {
+          if (submitBtn) submitBtn.disabled = false;
         }
-      } catch (err) {
-        alert(
-          `Error: ${err instanceof Error ? err.message : "Submission failed"}`,
-        );
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
+      });
     });
   </script>
 </PageLayout>

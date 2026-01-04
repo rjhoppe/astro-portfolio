@@ -106,50 +106,55 @@ describe("Blog Page", () => {
   test("should organize posts by year correctly", () => {
     const mockPosts = [
       {
-        data: { date: new Date("2024-01-01"), title: "Post 1" },
+        data: {
+          date: new Date(Date.UTC(2024, 0, 1)),
+          title: "Post 1",
+          draft: false,
+        },
       },
       {
-        data: { date: new Date("2023-12-31"), title: "Post 2" },
+        data: {
+          date: new Date(Date.UTC(2023, 11, 31)),
+          title: "Post 2",
+          draft: false,
+        },
       },
       {
-        data: { date: new Date("2024-02-01"), title: "Post 3" },
+        data: {
+          date: new Date(Date.UTC(2024, 1, 1)),
+          title: "Post 3",
+          draft: false,
+        },
       },
     ];
 
-    // Simulate the year grouping logic (matching the actual implementation)
-    const postsByYear = mockPosts.reduce((acc: any, post: any) => {
-      const year = post.data.date.getFullYear().toString();
-      if (!acc[year]) {
-        acc[year] = [];
+    const processedPosts = mockPosts
+      .filter((post) => !post.data.draft)
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+    const postsByYear: { [key: string]: any[] } = {};
+    for (const post of processedPosts) {
+      const year = post.data.date.getUTCFullYear().toString();
+      if (!postsByYear[year]) {
+        postsByYear[year] = [];
       }
-      acc[year].push(post);
-      return acc;
-    }, {});
+      postsByYear[year].push(post);
+    }
 
-    // Sort posts within each year by date (newest first) - matching the actual implementation
-    Object.keys(postsByYear).forEach((year) => {
-      postsByYear[year].sort(
-        (a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf(),
-      );
-    });
-
-    // Compare only the year and title fields to avoid Date object identity issues
     expect(
       Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a)),
     ).toEqual(["2024", "2023"]);
-    expect(postsByYear["2024"].map((p: any) => p.data.title)).toEqual([
+
+    const year2024Posts = postsByYear["2024"];
+    expect(year2024Posts).toHaveLength(2);
+    expect(year2024Posts.map((p: any) => p.data.title)).toEqual([
       "Post 3",
       "Post 1",
     ]);
-    expect(
-      postsByYear["2024"].map((p: any) => p.data.date.getFullYear()),
-    ).toEqual([2024, 2024]);
-    expect(postsByYear["2023"].map((p: any) => p.data.title)).toEqual([
-      "Post 2",
-    ]);
-    expect(
-      postsByYear["2023"].map((p: any) => p.data.date.getFullYear()),
-    ).toEqual([2023]);
+
+    const year2023Posts = postsByYear["2023"];
+    expect(year2023Posts).toHaveLength(1);
+    expect(year2023Posts.map((p: any) => p.data.title)).toEqual(["Post 2"]);
   });
 
   test("should filter out draft posts", () => {
