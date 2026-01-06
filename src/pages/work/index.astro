@@ -62,8 +62,8 @@ const work: WorkWithContent[] = await Promise.all(
       const dlBtn = document.getElementById("resume-dl");
       dlBtn?.addEventListener("click", () => {
         const link = document.createElement("a");
-        link.href = "/docs/Richard_Hoppe_Resume.pdf"; // Replace with your file's URL
-        link.download = "Richard_Hoppe_Resume"; // Name the downloaded file
+        link.href = "/docs/Richard_Hoppe_Resume.pdf";
+        link.download = "Richard_Hoppe_Resume";
         // Append the link to the document body (it's required to trigger the click)
         document.body.appendChild(link);
         // Programmatically click the link to trigger the download
